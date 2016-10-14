@@ -30,12 +30,12 @@ def index():
     # what you get from a db(...).select(...).
     # posts = ['banana', 'pear', 'eggplant']
 
-    posts = []
-    if auth.user_id is not None:
-        posts = db(db.post.user_email == auth.user.email).select(
-            orderby=~db.post.updated_on
-        )
-    return dict(posts=posts)
+    posts = db().select(
+        orderby=~db.post.updated_on,
+        limitby=(0, 20)
+    )
+
+    return dict(posts=posts, username=get_user_name_from_email)
 
 
 @auth.requires_login()
@@ -48,14 +48,8 @@ def edit():
     if request.args(0) is None:
         # If argument zero in URL is empty then it must be a create form
         form_type = 'create'
-
-        form = SQLFORM.factory(
-            Field('title'),
-            Field('post_items', 'list:string', label='Posts'),
-        )
-
         # Create form that enables insertion and name database table form refers to
-        # form = SQLFORM(db.post)
+        form = SQLFORM(db.post)
     else:
         # URL is referencing specific post
         # Check that post exists and if user is author of post
@@ -68,18 +62,13 @@ def edit():
             session.flash = T('Not Authorized')
             redirect(URL('default', 'index'))
 
-        # Update created_on and updated_on date
-        p.created_on = datetime.datetime.utcnow()
-        p.updated_on = datetime.datetime.utcnow()
-        p.update_record()
-
         # Post now confirmed to be valid
         # Boolean to check user intent to edit, if not then just view
         is_edit = (request.vars.edit == 'true')
         form_type = 'edit' if is_edit else 'view'
 
         # Extract post content
-        post_list = None
+        """post_list = None
         try:
             post_list = json.loads(p.post)
         except:
@@ -90,20 +79,26 @@ def edit():
             if isinstance(p.post, basestring):
                 post_list = [p.post]
             else:
-                post_list = []
+                post_list = []"""
 
-        form = SQLFORM.factory(
-            Field('title'),
-            Field('post_items', 'list:string', default=post_list, label='Posts', writable=is_edit),
-        )
+        form = SQLFORM(db.post, record=p, deletable=is_edit, readonly=not is_edit, writable=is_edit)
 
-        # form = SQLFORM(db.post, record=p, deletable=is_edit, readonly=not is_edit)
+        # Updates posts when edited
+        # p.post_content = form.vars.post_content
+        # Update created_on and updated_on date
+        # Take time stamp of when post created only once, no need to update
+        # p.created_on = datetime.datetime.utcnow()
+        p.updated_on = datetime.datetime.utcnow()
+        # Updates actual database
+        p.update_record()
+
+
 
     # Add necessary buttons for each user action
     button_list = []
     if form_type == 'edit':
         button_list.append(A('Cancel', _class='btn btn-warning',
-                             _href=URL('default', 'edit', args=[p.id])))
+                             _href=URL('default', 'index')))
     elif form_type == 'create':
         button_list.append(A('Cancel', _class='btn btn-warning',
                              _href=URL('default', 'index')))
@@ -116,17 +111,18 @@ def edit():
     if form.process().accepted:
         # Post already validated and posted at this point
         # Update and insert record
-        items = json.dumps(form.vars.post_items)
         if form_type == 'create':
-            db.post.insert(post_content=form.vars.post_items)
             session.flash = T('Post created!')
         else:
             session.flash = T('Content saved')
-            p.post = items
+            p.post_content = form.vars.post_content
+            p.updated_on = datetime.datetime.utcnow()
             p.update_record()
+
         redirect(URL('default', 'index'))
     elif form.errors:
         session.flash = T('Get it right this time')
+
     return dict(form=form, button_list=button_list, p=p, form_type=form_type, post_list=post_list)
 
 
