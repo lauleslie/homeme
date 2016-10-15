@@ -1,5 +1,4 @@
-# Web2py
-CMPS 183 Web Applications (Hypermedia and the Web)
+# Homework 2
 
 Assignment
 
@@ -22,8 +21,9 @@ See the drawing below for an example.  Notes:
 You don't need to make your page look identical to this; this is a schematic representation only.
 The dates will display in UTC. This is intended.  I will teach you later how to convert these to the user local time zone.
 Feel free to display the time in the best possible way, e.g., "12 minutes ago", "4 hours ago", "Yesterday 3pm", ... there are python libraries for converting from a datetime into a "humane" time representation.  I leave this as an exercise. 
-Example of not logged in home page
 
+Example of not logged in home page
+![alt tag](https://cloud.githubusercontent.com/assets/15008505/19405896/edbc3c7c-9231-11e6-91be-c5c38e0c64b5.PNG)
 
 Logged in
 
@@ -39,7 +39,7 @@ If the post was made by the author, a button to edit/delete the post.
 See example below.  Again, you don't need to make it look identical to this.
 
 Example of logged in home page
-
+![alt tag](https://cloud.githubusercontent.com/assets/15008505/19405897/f0a4b036-9231-11e6-86d0-6438a66df44a.PNG)
 
 Note that in this example, the logged in user (Luca de Alfaro) can edit only the posts that he created, so the "Edit" icon is present only for those posts. 
 Note also how the edited date is displayed only when different from the creation date. 
