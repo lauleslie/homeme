@@ -1,0 +1,4 @@
+This folder will contain: 
+- Release Plan
+- Sprint Plan #1, 2, 3
+- HomeMe Presentation
