@@ -24,19 +24,28 @@
             <!-- Here goes the code to display an individual post. The code below is just a placeholder. -->
             <h3>{{=p.post_content}}</h3>
             <div class="post_details text-left">
-                {{=username(p.user_email)}}
-                {{=p.created_on.hour}}:{{=p.created_on.minute}}
-                {{=p.created_on.month}}/{{=p.created_on.day}}/{{=p.created_on.year}}
+                Posted by: <strong>{{=username(p.user_email)}}</strong>
+                at <em>{{=p.created_on.hour}}:{{=p.created_on.minute}}</em>
 
-                {{if p.created_on != p.updated_on:}}
-                    Edited on {{=p.updated_on.hour}}:{{=p.updated_on.minute}}
+                {{if p.created_on == p.updated_on:}}
+                    <em>on {{=p.created_on.month}}/{{=p.created_on.day}}/{{=p.created_on.year}}</em>
+
+                {{else:}}
+                    <br> and edited
+                    {{=p.updated_on.hour}}:{{=p.updated_on.minute}} on
                     {{=p.updated_on.month}}/{{=p.updated_on.day}}/{{=p.updated_on.year}}
                 {{pass}}
 
+                <!-- {{if p.created_on != p.updated_on:}}
+                    Edited on {{=p.updated_on.hour}}:{{=p.updated_on.minute}}
+                    {{=p.updated_on.month}}/{{=p.updated_on.day}}/{{=p.updated_on.year}}
+                {{pass}}
+                -->
+
                 {{if auth.user is not None:}}
                     {{if p.user_email == auth.user.email:}}
-                        <a href="{{=URL('default', 'edit', args=[p.id], vars=dict(edit='true'))}}" class="btn">
-                            <i class="fa fa-pencil-square-o fa-2x", style="text-align: right"></i>
+                        | <a href="{{=URL('default', 'edit', args=[p.id], vars=dict(edit='true'))}}">
+                            Click to edit
                         </a>
                     {{pass}}
                 {{pass}}
