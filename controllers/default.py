@@ -37,7 +37,6 @@ def index():
 
     return dict(posts=posts, username=get_user_name_from_email)
 
-
 @auth.requires_login()
 def edit():
     """
@@ -50,6 +49,8 @@ def edit():
         form_type = 'create'
         # Create form that enables insertion and name database table form refers to
         form = SQLFORM(db.post)
+        # add cancel button
+        form.add_button('cancel', URL('default', 'index'))
     else:
         # URL is referencing specific post
         # Check that post exists and if user is author of post
@@ -82,6 +83,8 @@ def edit():
                 post_list = []"""
 
         form = SQLFORM(db.post, record=p, deletable=is_edit, readonly=not is_edit, writable=is_edit)
+        # add cancel button
+        form.add_button('cancel', URL('default', 'index'))
 
         # Updates posts when edited
         # p.post_content = form.vars.post_content
@@ -91,8 +94,6 @@ def edit():
         p.updated_on = datetime.datetime.utcnow()
         # Updates actual database
         p.update_record()
-
-
 
     # Add necessary buttons for each user action
     button_list = []
@@ -123,8 +124,8 @@ def edit():
     elif form.errors:
         session.flash = T('Get it right this time')
 
-    return dict(form=form, button_list=button_list, p=p, form_type=form_type, post_list=post_list)
-
+    # return dict(form=form, button_list=button_list, p=p, form_type=form_type, post_list=post_list)
+    return dict(form=form)
 
 def user():
     """
