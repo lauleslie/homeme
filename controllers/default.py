@@ -19,6 +19,9 @@ def get_user_name_from_email(email):
         return ' '.join([u.first_name, u.last_name])
 
 
+def splash():
+    return dict()
+
 def index():
     """
     This is your main controller.
