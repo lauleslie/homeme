@@ -15,6 +15,10 @@ db.define_table('post',
                 Field('post_content', 'text'),
                 Field('created_on', 'datetime', default=datetime.datetime.utcnow()),
                 Field('updated_on', 'datetime', update=datetime.datetime.utcnow()),
+                Field('min_budget'),
+                Field('max_budget'),
+                Field('number_of_people'),
+                Field('description')
                 )
 
 # I don't want to display the user email by default in all forms.
@@ -24,5 +28,13 @@ db.post.post_content.requires = IS_NOT_EMPTY()
 db.post.created_on.readable = db.post.created_on.writable = False
 db.post.updated_on.readable = db.post.updated_on.writable = False
 
+
+db.post.min_budget.requires = IS_FLOAT_IN_RANGE(0,1000000000000)
+db.post.max_budget.requires = IS_FLOAT_IN_RANGE(0,1000000000000)
+db.post.number_of_people.requires = IS_INT_IN_RANGE(0,30)
+db.post.description.requires = IS_NOT_EMPTY()
+#db.post.budget.readable = db.post.budget.writable = False
+#db.post.number_of_people.readable = db.post.number_of_people.writable = False
+#db.post.description.readable = db.post.description.writable = False
 # after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)

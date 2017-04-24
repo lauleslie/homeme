@@ -29,7 +29,7 @@ def index():
     # Note that posts is NOT a list of strings in your actual code; it is
     # what you get from a db(...).select(...).
     # posts = ['banana', 'pear', 'eggplant']
-
+    
     posts = db().select(
         orderby=~db.post.updated_on,
         limitby=(0, 20)
