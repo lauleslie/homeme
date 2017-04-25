@@ -1,0 +1,36 @@
+{{extend 'layout.html'}}
+<link rel="stylesheet" href="{{=URL('static','css/profile.css')}}"/>
+
+{{block head}}
+<script src="{{=URL('static', 'js/vue.js')}}"></script>
+<script>
+    // All URLs go here
+</script>
+{{end}}
+
+<div class="container-fluid">
+
+    <h1>HomeMe Profile</h1>
+    {{if auth.user_id:}}
+    Hello, {{=auth.user.first_name}}!
+    {{pass}}
+    <h2>Profile Set Up</h2>
+
+        <form action="">
+            I am a: &nbsp;
+            <input type="radio" name="gender" value="landlord"> Landlord&nbsp;
+            <input type="radio" name="gender" value="tenant"> Tenant<br>
+        </form>
+    <br>
+
+    <form>
+        <p>Tell us a little about yourself.
+            <textarea class="form-control" rows="3"></textarea>
+        </p>
+
+        <p>
+            <button type="button" class="btn btn-default">Submit</button>
+        </p>
+    </form>
+
+</div>

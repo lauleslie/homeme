@@ -22,6 +22,9 @@ def get_user_name_from_email(email):
 def splash():
     return dict()
 
+def profile():
+    return dict()
+
 def index():
     """
     This is your main controller.
