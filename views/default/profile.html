@@ -14,23 +14,7 @@
     {{if auth.user_id:}}
     Hello, {{=auth.user.first_name}}!
     {{pass}}
-    <h2>Profile Set Up</h2>
-
-        <form action="">
-            I am a: &nbsp;
-            <input type="radio" name="gender" value="landlord"> Landlord&nbsp;
-            <input type="radio" name="gender" value="tenant"> Tenant<br>
-        </form>
-    <br>
-
-    <form>
-        <p>Tell us a little about yourself.
-            <textarea class="form-control" rows="3"></textarea>
-        </p>
-
-        <p>
-            <button type="button" class="btn btn-default">Submit</button>
-        </p>
-    </form>
+    <h2><em>Profile Set Up</em></h2>
 
 </div>
+        {{=form}}

@@ -15,7 +15,9 @@ db.define_table('post',
                 Field('post_content', 'text'),
                 Field('created_on', 'datetime', default=datetime.datetime.utcnow()),
                 Field('updated_on', 'datetime', update=datetime.datetime.utcnow()),
-                )
+                Field('landlord', 'boolean'),
+                Field('tenant', 'boolean'),
+                Field('about_me', 'text'))
 
 # I don't want to display the user email by default in all forms.
 db.post.user_email.readable = db.post.user_email.writable = False
