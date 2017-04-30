@@ -1,0 +1,48 @@
+{{extend 'layout.html'}}
+<link rel="stylesheet" href="{{=URL('static','css/splash.css')}}"/>
+
+{{block head}}
+<script src="{{=URL('static', 'js/vue.js')}}"></script>
+<script>
+    // All URLs go here
+</script>
+{{end}}
+
+<div class="main_content">
+
+    <header>
+        <div class="logo">HomeMe</div>
+        <nav>
+            <a href="{{=URL('default', 'profile')}}">Profile</a>
+            <a href="{{=URL('default', 'user', args=['logout'])}}">Logout</a>
+        </nav>
+        <h1><span>Clever sales pitch goes here</span></h1>
+        <p class="caption"></p>
+        <div class="button_container">
+            <a href="{{=URL('default', 'user', args=['login'])}}" class="btn btn-lg signup_button">
+                Get started today for free!
+            </a>
+        </div>
+    </header>
+
+    <div class="about">
+        <h1>What is HomeMe?</h1>
+        <p>Insert description here</p>
+    </div>
+
+    <footer>
+        <div class="lockup">
+            <div class="logo">HomeMe</div>
+            <div class="content-wrap">
+                <nav>
+                    <a href="">About Us</a>
+                    <a href="">FAQ</a>
+                    <a href="">Contact Us</a>
+                    <a href="">Careers</a>
+                </nav>
+                <p class="copyright">All content copyright 2017</p>
+            </div>
+        </div>
+    </footer>
+
+</div>

@@ -1,0 +1,42 @@
+{{extend 'layout.html'}}
+<title>MY PROFILE</title>
+
+
+<body background="http://carboncostume.com/wordpress/wp-content/uploads/2014/09/patrickstar.jpg">
+<div class="my profile">
+{{pass}}
+    <div class="profile">
+		Welcome to<h1>{{=auth.user.first_name}} {{=auth.user.last_name}}'s profile</h1>
+		<h1>contact this mofo at {{=auth.user.email}} </h1>
+    	<div class="info">
+    	{{for p in prof:}}
+
+               	<p>Country: {{=p.your_country}} </p>
+               	<p>State: {{=p.your_state}}</p> 
+               	<p>County: {{=p.your_county}}</p>
+
+        </div>
+
+        <a href="{{=URL('default', 'user', args=['profile'])}}" class="btn btn-info" role="button">
+	   		<i>Change Name/Email </i>
+	    </a>
+
+        <a href="{{=URL('default', 'profile_edit')}}" class="btn btn-info" role="button">
+	    	<i>Edit My Profile </i>
+	    </a>
+
+
+        <!-- dedass -->
+
+
+	{{pass}}
+    </div>
+
+</div>
+<div class="go_to_index text-center">
+    <a href="{{=URL('default', 'index')}}" class="btn btn-warning">
+        <i>HOME </i>
+    </a>
+</div>
+
+

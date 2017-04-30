@@ -10,9 +10,16 @@
         </a>
     </div>
 
-    <div class="post_list_header text-right">
+    <div class="post_landlord_header text-right">
         <a href="{{=URL('default', 'edit_Landlord')}}" class="btn btn-warning">
             <i class="fa fa-plus"></i> New Post as Landlord
+        </a>
+    </div>
+
+
+    <div class="go_to_profile text-right">
+        <a href="{{=URL('default', 'profile')}}" class="btn btn-warning">
+            <i> VIEW MY PROFILE </i>
         </a>
     </div>
 
@@ -37,7 +44,8 @@
                 Description<h3>{{=p.description}}</h3> 
                 Number of People<h3>{{=p.number_of_people}}</h3>
             <div class="post_details text-left">
-                Posted by: <strong>{{=username(p.user_email)}}</strong>
+
+                Posted by: <a href="{{=URL('default', 'profile')}}">{{=username(p.user_email)}}</a>
                 at <em>{{=p.created_on.hour}}:{{=p.created_on.minute}}</em>
 
                 {{if p.created_on == p.updated_on:}}
