@@ -21,7 +21,9 @@ db.define_table('post',
                 Field('description')
                 )
 db.define_table('profile',
-	            Field('user_email', default=auth.user.email if auth.user_id else None),
+	        Field('user_email', default=auth.user.email if auth.user_id else None),
+                Field('landlord', 'boolean'),
+                Field('tenant', 'boolean' ),  
                 Field('your_country'),
                 Field('updated_on', 'datetime', update=datetime.datetime.utcnow()),
                 Field('about_yourself', 'text'),
