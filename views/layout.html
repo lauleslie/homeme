@@ -79,7 +79,7 @@
     {{end}}
     <!-- Main ========================================= -->
     <!-- Begin page content -->
-    <div class="container-fluid main-container">
+    <div class="">
       {{if left_sidebar_enabled:}}
         <div class="col-md-3 left-sidebar">
             {{block left_sidebar}}
@@ -89,7 +89,7 @@
         </div>
       {{pass}}
 
-      <div class="{{=middle_column}}">
+      <div class="">
         {{block center}}
         {{include}}
         {{end}}
