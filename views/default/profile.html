@@ -10,10 +10,15 @@
 		<h1>contact this mofo at {{=auth.user.email}} </h1>
     	<div class="info">
     	{{for p in prof:}}
-
-               	<p>Country: {{=p.your_country}} </p>
-               	<p>State: {{=p.your_state}}</p> 
-               	<p>County: {{=p.your_county}}</p>
+                {{if p.landlord:}}
+                      <p>landlord<p>
+                {{else:}}
+                      <p>tenant<p>
+                {{pass}}
+                     	<p>Country: {{=p.your_country}} </p>
+                     	<p>State: {{=p.your_state}}</p> 
+                     	<p>County: {{=p.your_county}}</p>
+                {{pass}}
 
         </div>
 
