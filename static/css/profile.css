@@ -1,0 +1,17 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2 {
+    font-weight: lighter;
+}
+
+p .btn {
+    background-color: #87a087 !important;
+    border-radius: 10%;
+}
+
+p .btn:hover {
+    background-color: #9ab79a !important;
+}
+

@@ -2,10 +2,17 @@
 
 <div class="post_listing center">
 {{if auth.user_id:}}
-
     <div class="post_list_header text-right">
         <a href="{{=URL('default', 'edit')}}" class="btn btn-warning">
             <i class="fa fa-plus"></i> New Post
+        </a>
+    </div>
+
+    <br>
+
+        <div class="post_list_header text-right">
+        <a href="{{=URL('default', 'profile')}}" class="btn btn-warning">
+            <i class="fa fa-user-plus"></i> Edit profile
         </a>
     </div>
 
@@ -24,6 +31,7 @@
             <!-- Here goes the code to display an individual post. The code below is just a placeholder. -->
             <h3>{{=p.post_content}}</h3>
             <div class="post_details text-left">
+
                 Posted by: <strong>{{=username(p.user_email)}}</strong>
                 at <em>{{=p.created_on.hour}}:{{=p.created_on.minute}}</em>
 

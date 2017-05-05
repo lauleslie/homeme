@@ -1,0 +1,20 @@
+{{extend 'layout.html'}}
+<link rel="stylesheet" href="{{=URL('static','css/profile.css')}}"/>
+
+{{block head}}
+<script src="{{=URL('static', 'js/vue.js')}}"></script>
+<script>
+    // All URLs go here
+</script>
+{{end}}
+
+<div class="container-fluid">
+
+    <h1>HomeMe Profile</h1>
+    {{if auth.user_id:}}
+    Hello, {{=auth.user.first_name}}!
+    {{pass}}
+    <h2><em>Profile Set Up</em></h2>
+
+</div>
+        {{=form}}
