@@ -58,15 +58,35 @@ response.form_label_separator = myconf.get('forms.separator') or ''
 # - old style crud actions
 # (more options discussed in gluon/tools.py)
 
-from gluon.tools import Auth, Service, PluginManager
+from gluon.tools import Auth, Crud, Service, PluginManager, prettydate
+
 
 # host names must be a list of allowed host names (glob syntax allowed)
 auth = Auth(db, host_names=myconf.get('host.names'))
 service = Service()
-plugins = PluginManager()
+crud, service, plugins = Crud(db), Service(), PluginManager()
+
+
+#defining extra fields for auth_user
+import datetime
+
+auth.settings.extra_fields['auth_user'] = [
+    Field('your_country'),
+    Field('your_state'),
+    Field('your_county'),
+    Field('landlord', 'boolean'),
+    Field('tenant', 'boolean' ), 
+    Field('about_yourself', 'text'),
+
+]
+
+
 
 # create all tables needed by auth if not custom tables
 auth.define_tables(username=False, signature=False)
+
+
+
 
 # configure email
 mail = auth.settings.mailer

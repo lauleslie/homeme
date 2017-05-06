@@ -6,30 +6,17 @@
 <div class="my profile">
 {{pass}}
     <div class="profile">
-		Welcome to<h1>{{=auth.user.first_name}} {{=auth.user.last_name}}'s profile</h1>
-		<h1>contact this mofo at {{=auth.user.email}} </h1>
-    	<div class="info">
-    	{{for p in prof:}}
+    <h1>{{=crud.read(db.auth_user,user)}}</h1>
 
-               	<p>Country: {{=p.your_country}} </p>
-               	<p>State: {{=p.your_state}}</p> 
-               	<p>County: {{=p.your_county}}</p>
-
-        </div>
 
         <a href="{{=URL('default', 'user', args=['profile'])}}" class="btn btn-info" role="button">
-	   		<i>Change Name/Email </i>
+	   		<i>Edit Profile</i>
 	    </a>
-
-        <a href="{{=URL('default', 'profile_edit')}}" class="btn btn-info" role="button">
-	    	<i>Edit My Profile </i>
-	    </a>
-
 
         <!-- dedass -->
 
 
-	{{pass}}
+  {{pass}}
     </div>
 
 </div>

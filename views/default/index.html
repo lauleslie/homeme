@@ -57,12 +57,6 @@
                     {{=p.updated_on.month}}/{{=p.updated_on.day}}/{{=p.updated_on.year}}
                 {{pass}}
 
-                <!-- {{if p.created_on != p.updated_on:}}
-                    Edited on {{=p.updated_on.hour}}:{{=p.updated_on.minute}}
-                    {{=p.updated_on.month}}/{{=p.updated_on.day}}/{{=p.updated_on.year}}
-                {{pass}}
-                -->
-
                 {{if auth.user is not None:}}
                     {{if p.user_email == auth.user.email:}}
                         | <a href="{{=URL('default', 'edit', args=[p.id], vars=dict(edit='true'))}}">
@@ -73,6 +67,25 @@
             </div>
         </div>
     {{pass}}
-    </div>
 
+{{pass}}
+
+    <div class="post_list">
+    {{for p in posts2:}}
+
+
+        <div class="post text-left">
+            <!-- Here goes the code to display an individual post. The code below is just a placeholder. -->
+            <h3>{{=p.my_city}}</h3>
+
+            <div class="post_details text-left">
+
+
+            </div>
+        </div>
+    {{pass}}
+
+
+
+    </div>
 </div>

@@ -9,6 +9,8 @@
 
 import datetime
 
+
+
 # Create table to be called by SQLFORM
 db.define_table('post',
                 Field('user_email', default=auth.user.email if auth.user_id else None),
@@ -20,25 +22,51 @@ db.define_table('post',
                 Field('number_of_people'),
                 Field('description')
                 )
-db.define_table('profile',
-	        Field('user_email', default=auth.user.email if auth.user_id else None),
-                Field('landlord', 'boolean'),
-                Field('tenant', 'boolean' ),  
-                Field('your_country'),
-                Field('updated_on', 'datetime', update=datetime.datetime.utcnow()),
-                Field('about_yourself', 'text'),
-                Field('your_state'),
-                Field('your_county')
+
+                #landlord stuff
+db.define_table('post_landlord', 
+                 Field('user_email', default=auth.user.email if auth.user_id else None),
+                 Field('createdon', 'datetime', default=datetime.datetime.utcnow()),
+                 Field('updatedon', 'datetime', update=datetime.datetime.utcnow()),
+                 Field('my_address'),
+                 Field('my_city'),
+                 Field('my_state'),
+                 Field('sq_ft'),
+                 Field('num_bed'),
+                 Field('num_bath'),
+                 Field('washdry', 'boolean'),
+                 Field('furnish', 'boolean'),
+                 Field('pets', 'boolean'),
+                 Field('addt_info', 'text'),
+
                 )
+
+
+# a table to link two people
+db.define_table('link',
+    Field('src','reference auth_user'),
+    Field('target','reference auth_user'),
+    Field('accepted','boolean',default=False))
+
+# and define some global variables that will make code more compact
+User, Link, Post = db.auth_user, db.link, db.post
+me, a0, a1 = auth.user_id, request.args(0), request.args(1)
+myfriends = db(Link.src==me)(Link.accepted==True)
+alphabetical = User.first_name|User.last_name
+def name_of(user): return '%(first_name)s %(last_name)s' % user
+
+
+
+
 
 # I don't want to display the user email by default in all forms.
 db.post.user_email.readable = db.post.user_email.writable = False
-db.profile.user_email.readable = db.profile.user_email.writable = False
-db.profile.updated_on.readable = db.profile.updated_on.writable = False
 db.post.id.readable = db.post.id.writable = False
 db.post.post_content.requires = IS_NOT_EMPTY()
 db.post.created_on.readable = db.post.created_on.writable = False
 db.post.updated_on.readable = db.post.updated_on.writable = False
+db.post_landlord.createdon.readable = db.post_landlord.createdon.writable = False
+db.post_landlord.updatedon.readable = db.post_landlord.updatedon.writable = False
 
 
 db.post.min_budget.requires = IS_FLOAT_IN_RANGE(0,1000000000000)
