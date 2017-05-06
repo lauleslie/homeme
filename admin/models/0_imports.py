@@ -12,7 +12,11 @@ import socket
 from textwrap import dedent
 
 try:
-    from mercurial import ui, hg, cmdutil, scmutil
+    from mercurial import ui, hg, cmdutil
+    try:
+        from mercurial.scmutil import addremove
+    except:
+        from mercurial.cmdutil import addremove
     have_mercurial = True
 except ImportError:
     have_mercurial = False
@@ -24,5 +28,3 @@ from gluon.languages import findT, update_all_languages
 from gluon.myregex import *
 from gluon.restricted import *
 from gluon.compileapp import compile_application, remove_compiled_application
-
-
