@@ -47,94 +47,28 @@ def index():
 
 def profile():
 
-    prof = db().select(
-        orderby=~db.profile.updated_on,
-        limitby=(0, 1)
-    )
 
-    return dict(prof=prof)
+    user = User(a0 or me)
+    if not user or not (user.id==me or myfriends(Link.target==user.id).count()):
+        redirect(URL('home'))
 
+
+    return locals()
+
+
+# a page for searching friends and requesting friendship
 @auth.requires_login()
-def profile_edit():
-
-    """
-    This is the page to create / edit / delete a post.
-    """
-    p = None
-    post_list = []
-    if request.args(0) is None:
-        # If argument zero in URL is empty then it must be a create form
-        form_type = 'create'
-        # Create form that enables insertion and name database table form refers to
-        form = SQLFORM(db.profile)
-        # add cancel button
-        form.add_button('cancel', URL('default', 'index'))
+def search():
+    form = SQLFORM.factory(Field('name',requires=IS_NOT_EMPTY()))
+    if form.accepts(request):
+        tokens = form.vars.name.split()
+        query = reduce(lambda a,b:a&b,
+                       [User.first_name.contains(k)|User.last_name.contains(k) \
+                            for k in tokens])
+        people = db(query).select(orderby=alphabetical)
     else:
-        # URL is referencing specific post
-        # Check that post exists and if user is author of post
-        # first() used to get either first element or none instead of iterator
-        query = ((db.profile.user_email == auth.user.email) &
-                 (db.profile.id == request.args(0)))
-
-        p = db(query).select().first()
-        if p is None:
-            session.flash = T('Not Authorized')
-            redirect(URL('default', 'index'))
-
-        # Post now confirmed to be valid
-        # Boolean to check user intent to edit, if not then just view
-        is_edit = (request.vars.edit == 'true')
-        form_type = 'edit' if is_edit else 'view'
-
-        # Extract post content
-        """post_list = None
-        try:
-            post_list = json.loads(p.post)
-        except:
-            pass
-        if not isinstance(post_list, list):
-            # When try causes error, execute here
-            # If string in database then
-            if isinstance(p.post, basestring):
-                post_list = [p.post]
-            else:
-                post_list = []"""
-
-        form = SQLFORM(db.profile, record=p, deletable=is_edit, readonly=not is_edit, writable=is_edit)
-        # add cancel button
-        form.add_button('cancel', URL('default', 'index'))
-
-
-    # Add necessary buttons for each user action
-    button_list = []
-    if form_type == 'edit':
-        button_list.append(A('Cancel', _class='btn btn-warning',
-                             _href=URL('default', 'index')))
-    elif form_type == 'create':
-        button_list.append(A('Cancel', _class='btn btn-warning',
-                             _href=URL('default', 'index')))
-    elif form_type == 'view':
-        button_list.append(A('Edit', _class='btn btn-warning',
-                             _href=URL('default', 'edit', args=[p.id], vars=dict(edit='true'))))
-        button_list.append(A('Back', _class='btn btn-primary',
-                             _href=URL('default', 'index')))
-
-    if form.process().accepted:
-        # Post already validated and posted at this point
-        # Update and insert record
-        if form_type == 'create':
-            session.flash = T('Post created!')
-        else:
-            session.flash = T('Content saved')
-
-
-        redirect(URL('default', 'index'))
-    elif form.errors:
-        session.flash = T('Get it right this time')
-
-    # return dict(form=form, button_list=button_list, p=p, form_type=form_type, post_list=post_list)
-    return dict(form=form)
-
+        people = []
+    return locals()
 
 @auth.requires_login()
 def edit():
