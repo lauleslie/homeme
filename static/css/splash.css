@@ -53,7 +53,7 @@ header {
 
 header .logo {
     float: left;
-    margin: 15px 0 0 30px;
+    margin: 15px 0 0 10px;
     display: inline-block;
     color: white;
     font-size: 20px;
@@ -85,13 +85,14 @@ header h1 {
     color: white;
     clear: both;
     padding-top: 100px;
+    margin-bottom: 5px;
 }
 
 header h1 span {
     display: inline-block;
     padding: 0.2em 0.5em;
     text-shadow: none;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 header .caption {
@@ -99,7 +100,9 @@ header .caption {
     font-size: 22px;
     letter-spacing: 0.1em;
     color: #eeeeee;
-    line-height: 1;
+    line-height: 1.5;
+    font-weight: lighter;
+    padding: 50px;
 }
 
 header .button_container {
