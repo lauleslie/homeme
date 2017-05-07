@@ -22,6 +22,9 @@ def get_user_name_from_email(email):
 def splash():
     return dict()
 
+def aboutus():
+    return dict()
+    
 def index():
     """
     This is your main controller.
@@ -32,7 +35,7 @@ def index():
     # Note that posts is NOT a list of strings in your actual code; it is
     # what you get from a db(...).select(...).
     # posts = ['banana', 'pear', 'eggplant']
-    
+
     posts = db().select(
         orderby=~db.post.updated_on,
         limitby=(0, 5)
@@ -288,4 +291,3 @@ def call():
     supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
     """
     return service()
-
