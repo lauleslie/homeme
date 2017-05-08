@@ -80,7 +80,7 @@
 
             <div class="post_details text-left">
 
-                Posted by: <a href="{{=URL('default', 'profile')}}">{{=firstlast(p.user_email)}}</a>
+                Posted by: <a href="{{=URL('default', 'profile', args=p.id)}}">{{=firstlast(p.user_email)}}</a>
                 at <em>{{=p.created_on.hour}}:{{=p.created_on.minute}}</em>
 
                 {{if p.created_on == p.updated_on:}}
