@@ -24,7 +24,7 @@ def splash():
 
 def aboutus():
     return dict()
-    
+
 def index():
     """
     This is your main controller.
@@ -46,7 +46,20 @@ def index():
         limitby=(0, 5)
     )
 
-    return dict(posts=posts, posts2= posts2, username=get_user_name_from_email)
+    firstlast = get_user_name_from_email
+
+    form = SQLFORM.factory(Field('name',requires=IS_NOT_EMPTY()))
+    if form.accepts(request):
+        tokens = form.vars.name.split()
+        query = reduce(lambda a,b:a&b,
+                       [User.first_name.contains(k)|User.last_name.contains(k) \
+                            for k in tokens])
+        people = db(query).select(orderby=alphabetical)
+    else:
+        people = []
+    return locals()
+
+    return dict(form=form, posts=posts, posts2= posts2, username=get_user_name_from_email, firstlast=firstlast)
 
 def profile():
 

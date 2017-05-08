@@ -1,9 +1,10 @@
 {{extend 'layout.html'}}
-
-
+<script src="https://use.fontawesome.com/2a89db6bb1.js"></script>
+<link rel="stylesheet" href="{{=URL('static','css/index.css')}}"/>
 <div class="post_listing center">
 {{if auth.user_id:}}
 
+<!-- below is the old code for posting and viewing the profile
     <div class="post_list_header text-right">
         <a href="{{=URL('default', 'edit')}}" class="btn btn-warning">
             <i class="fa fa-plus"></i> New Post as Tenant
@@ -23,6 +24,31 @@
         </a>
     </div>
 
+  -->
+
+    <a href="{{=URL('default', 'edit')}}" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Post as Tenant</a>
+    <a href="{{=URL('default', 'edit_Landlord')}}" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Post as Landlord</a>
+    <a href="{{=URL('default', 'profile')}}" type="button" class="btn btn-info"><i class="fa fa-user-circle" aria-hidden="true"></i> View my profile</a>
+
+<div class="profilesearch">
+  <center>
+      <h4>Search for a user:</h4>
+      {{=form}}
+  </center>
+    {{if people:}}
+    <h4 align="left">Results:</h4>
+    <table>
+       {{for user in people:}}
+       <tr>
+         <td>{{=A(name_of(user), _href=URL('profile',args=user.id))}}
+         </td>
+       </tr>
+
+       {{pass}}
+    </table>
+    {{pass}}
+</div>
+
 {{else:}}
 
     <div class="post_list_header text-right">
@@ -32,20 +58,29 @@
 
 {{pass}}
 
-    <div class="post_list">
+    <div class="post_list1">
     {{for p in posts:}}
-
-
-        <div class="post text-left">
+        <!--
+        old code:
+        div class="post1 text-left">
+       -->
+        <div class="post1 text-left">
             <!-- Here goes the code to display an individual post. The code below is just a placeholder. -->
             <h3>{{=p.post_content}}</h3>
 
-                Budget:<h3>{{=p.min_budget}} to {{=p.max_budget}} $ USD </h3>
-                Description<h3>{{=p.description}}</h3> 
-                Number of People<h3>{{=p.number_of_people}}</h3>
+                <p>
+                  <strong>Budget:</strong> ${{=p.min_budget}} to ${{=p.max_budget}}
+                </p>
+
+                <p><strong>Description:</strong> {{=p.description}}
+                </p>
+
+                <p><strong>Number of People:</strong> {{=p.number_of_people}}
+                </p>
+
             <div class="post_details text-left">
 
-                Posted by: <a href="{{=URL('default', 'profile')}}">{{=username(p.user_email)}}</a>
+                Posted by: <a href="{{=URL('default', 'profile')}}">{{=firstlast(p.user_email)}}</a>
                 at <em>{{=p.created_on.hour}}:{{=p.created_on.minute}}</em>
 
                 {{if p.created_on == p.updated_on:}}

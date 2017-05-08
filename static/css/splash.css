@@ -46,9 +46,9 @@ header {
         linear-gradient(
             rgba(0, 0, 0, 0.1),
             rgba(0, 0, 0, 0.1)
-        );
+        ),
         url(https://static.pexels.com/photos/277559/pexels-photo-277559.jpeg)
-        no-repeat  center center fixed;
+        no-repeat center;
     background-size: cover;
 }
 
