@@ -65,8 +65,6 @@ def profile():
 
 
     user = User(a0 or me)
-    if not user or not (user.id==me or myfriends(Link.target==user.id).count()):
-        redirect(URL('home'))
 
 
     return locals()
