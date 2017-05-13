@@ -29,7 +29,7 @@
     <a href="{{=URL('default', 'edit')}}" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Post as Tenant</a>
     <a href="{{=URL('default', 'edit_Landlord')}}" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Post as Landlord</a>
     <a href="{{=URL('default', 'profile')}}" type="button" class="btn btn-info"><i class="fa fa-user-circle" aria-hidden="true"></i> View my profile</a>
- 
+
 
 <div class="profilesearch">
   <center>
@@ -70,7 +70,6 @@
             <!-- Here goes the code to display an individual post. The code below is just a placeholder. -->
             <h3>{{=p.post_content}}</h3>
 
-                <p>
                   <strong>Budget:</strong> ${{=p.min_budget}} to ${{=p.max_budget}}
                 </p>
 
@@ -104,15 +103,16 @@
             </div>
         </div>
     {{pass}}
-
+</div>
 {{pass}}
 
-    <div class="post_list">
+    <div class="post_list1">
     {{for p in posts2:}}
 
 
-        <div class="post text-left">
+        <div class="post1 text-left">
             <!-- Here goes the code to display an individual post. The code below is just a placeholder. -->
+            <img src="{{=URL('default', 'download', args=p.picture)}}" width="30%"/>
             <h3>{{=p.my_city}}</h3>
 
             <div class="post_details text-left">
@@ -124,5 +124,5 @@
 
 
 
-    </div>
+
 </div>

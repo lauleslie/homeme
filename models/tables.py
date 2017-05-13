@@ -24,7 +24,7 @@ db.define_table('post',
                 )
 
                 #landlord stuff
-db.define_table('post_landlord', 
+db.define_table('post_landlord',
                  Field('user_email', default=auth.user.email if auth.user_id else None),
                  Field('createdon', 'datetime', default=datetime.datetime.utcnow()),
                  Field('updatedon', 'datetime', update=datetime.datetime.utcnow()),
@@ -37,8 +37,8 @@ db.define_table('post_landlord',
                  Field('washdry', 'boolean'),
                  Field('furnish', 'boolean'),
                  Field('pets', 'boolean'),
-                 Field('addt_info', 'text'),
-
+                 Field('more_info', 'text'),
+                 Field('picture', 'upload')
                 )
 
 
