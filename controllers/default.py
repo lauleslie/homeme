@@ -165,6 +165,10 @@ def edit():
         else:
             session.flash = T('Content saved')
             p.post_content = form.vars.post_content
+            p.min_budget = form.vars.min_budget
+            p.max_budget = form.vars.max_budget
+            p.number_of_people = form.vars.number_of_people
+            p.description = form.vars.description
             p.updated_on = datetime.datetime.utcnow()
             p.update_record()
 
@@ -255,7 +259,17 @@ def edit_Landlord():
             session.flash = T('Post created!')
         else:
             session.flash = T('Content saved')
-            p.post_content = form.vars.post_content
+            p.my_address = form.vars.my_address
+            p.my_city = form.vars.my_city
+            p.my_state = form.vars.my_state
+            p.sq_ft = form.vars.sq_ft
+            p.num_bed = form.vars.num_bed
+            p.num_bath = form.vars.num_bath
+            p.washdry = form.vars.washdry
+            p.furnish = form.vars.furnish
+            p.pets = form.vars.pets
+            p.more_info = form.vars.more_info
+            p.picture = form.vars.picture
             p.updated_on = datetime.datetime.utcnow()
             p.update_record()
 
