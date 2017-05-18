@@ -8,6 +8,7 @@
 # - download is for downloading files uploaded in the db (does streaming)
 # -------------------------------------------------------------------------
 import json
+from gluon.tools import geocode
 
 def get_user_name_from_email(email):
     """Returns a string corresponding to the user first and last names,
@@ -57,6 +58,7 @@ def index():
         people = db(query).select(orderby=alphabetical)
     else:
         people = []
+
     return locals()
 
     return dict(form=form, posts=posts, posts2= posts2, username=get_user_name_from_email, firstlast=firstlast)
@@ -69,26 +71,54 @@ def profile():
 
     return locals()
 
+def geo(form):
+    (form.vars.longitude,form.vars.latitude)=geocode(form.vars.my_city+', USA')
+
 
 # a page for searching friends and requesting friendship
 @auth.requires_login()
 def search():
-    form = SQLFORM.factory(Field('name',requires=IS_NOT_EMPTY()))
+    posts = db().select(
+        orderby=~db.post.updated_on,
+        limitby=(0, 5)
+    )
+    form = SQLFORM.factory(Field('name',requires=IS_NOT_EMPTY()),
+                          Field('search_county', label ='find users in your zip code'),
+                          Field('search_states', label ='find users in your province')
+                          )
     if form.accepts(request):
         tokens = form.vars.name.split()
+        statee = form.vars.search_states
+        countyy = form.vars.search_county
         query = reduce(lambda a,b:a&b,
                        [User.first_name.contains(k)|User.last_name.contains(k) \
                             for k in tokens])
+        query &= User.your_county.contains(countyy)
+        query &= User.your_state.contains(statee)
+
         people = db(query).select(orderby=alphabetical)
     else:
         people = []
+    
+
+    latitude = ""
+    longtitude = ''
+    form1=SQLFORM.factory(Field('search',requires=IS_NOT_EMPTY()))
+    if form1.accepts(request):
+        address=form.vars.search1
+        (latitude, longitude) = geocode(address)
+    else:
+        (latitude, longitude) = ('','')
     return locals()
+
+    return dict(form1=form1, latitude=latitude, longitude=longitude)
 
 @auth.requires_login()
 def edit():
     """
     This is the page to create / edit / delete a post.
     """
+
     p = None
     post_list = []
     if request.args(0) is None:
@@ -169,15 +199,18 @@ def edit():
             p.max_budget = form.vars.max_budget
             p.number_of_people = form.vars.number_of_people
             p.description = form.vars.description
+            p.my_city = form.vars.my_city
             p.updated_on = datetime.datetime.utcnow()
             p.update_record()
+            (p.latitude, p.longitude) = geocode(p.my_city)
 
         redirect(URL('default', 'index'))
     elif form.errors:
+        (p.latitude, p.longitude) = ('','')
         session.flash = T('Get it right this time')
 
     # return dict(form=form, button_list=button_list, p=p, form_type=form_type, post_list=post_list)
-    return dict(form=form)
+    return dict(form=form,onvalidation=geo)
 
 
 @auth.requires_login()
@@ -278,7 +311,7 @@ def edit_Landlord():
         session.flash = T('Get it right this time')
 
     # return dict(form=form, button_list=button_list, p=p, form_type=form_type, post_list=post_list)
-    return dict(form=form)
+    return dict(form=form,onvalidation=geo)
 
 def user():
     """

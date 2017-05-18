@@ -85,8 +85,9 @@
 
 	            <div class="post_details text-left">
 
-	                Posted by: <a href="{{=URL('default', 'profile', args=p.id)}}">{{=firstlast(p.user_email)}}</a>
+	                Posted by: <td>{{=firstlast(p.user_email)}}</td>
 	                at <em>{{=p.created_on.hour}}:{{=p.created_on.minute}}</em>
+                    <p>latitude, longtitude: {{=p.latitude}},{{=p.longitude}}</p>
 
 	                {{if p.created_on == p.updated_on:}}
 	                    <em>on {{=p.created_on.month}}/{{=p.created_on.day}}/{{=p.created_on.year}}</em>
@@ -164,8 +165,9 @@
 
 	            <div class="post_details text-left">
 
-	                Posted by: <a href="{{=URL('default', 'profile', args=p.id)}}">{{=firstlast(p.user_email)}}</a>
+	                Posted by: <td>{{=firstlast(p.user_email)}}</td>
 	                at <em>{{=p.createdon.hour}}:{{=p.createdon.minute}}</em>
+                    <p>latitude, longtitude: {{=p.latitude}},{{=p.longitude}}</p>
 
 	                {{if p.createdon == p.updatedon:}}
 	                    <em>on {{=p.createdon.month}}/{{=p.createdon.day}}/{{=p.createdon.year}}</em>
@@ -213,8 +215,9 @@
 
 		            <div class="post_details text-left">
 
-		                Posted by: <a href="{{=URL('default', 'profile', args=p.id)}}">{{=firstlast(p.user_email)}}</a>
+		                Posted by: <td>{{=firstlast(p.user_email)}}</td>
 		                at <em>{{=p.created_on.hour}}:{{=p.created_on.minute}}</em>
+                        <p>latitude, longtitude: {{=p.latitude}},{{=p.longitude}}</p>
 
 		                {{if p.created_on == p.updated_on:}}
 		                    <em>on {{=p.created_on.month}}/{{=p.created_on.day}}/{{=p.created_on.year}}</em>
@@ -294,8 +297,9 @@
 
 		            <div class="post_details text-left">
 
-		                Posted by: <a href="{{=URL('default', 'profile', args=p.id)}}">{{=firstlast(p.user_email)}}</a>
+		                Posted by: <td>{{=firstlast(p.user_email)}}</td>
 		                at <em>{{=p.createdon.hour}}:{{=p.createdon.minute}}</em>
+                        <p>latitude, longtitude: {{=p.latitude}},{{=p.longitude}}</p>
 
 		                {{if p.createdon == p.updatedon:}}
 		                    <em>on {{=p.createdon.month}}/{{=p.createdon.day}}/{{=p.createdon.year}}</em>

@@ -20,7 +20,10 @@ db.define_table('post',
                 Field('min_budget'),
                 Field('max_budget'),
                 Field('number_of_people'),
-                Field('description')
+                Field('description'),
+                Field('my_city'),
+                Field('latitude','double',writable=False,readable=False),
+                Field('longitude','double',writable=False,readable=False),
                 )
 
                 #landlord stuff
