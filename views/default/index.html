@@ -2,6 +2,19 @@
 <script src="https://use.fontawesome.com/2a89db6bb1.js"></script>
 <link rel="stylesheet" href="{{=URL('static','css/index.css')}}"/>
 
+<div class="navbar">
+    <div class="logo">
+        <img src="http://i.imgur.com/yRFFTxA.jpg" height="50px"/>
+    </div>
+
+    <nav>
+        <a href="{{=URL('default', 'aboutus')}}">About Us</a>
+        <a href="{{=URL('default', 'user', args=['login'])}}"> Get Started</a>
+        <a href="{{=URL('default', 'profile')}}">Profile</a>
+        <a href="{{=URL('default', 'user', args=['logout'])}}">Logout</a>
+    </nav>
+</div>
+
 <div class="post_listing center">
 {{if auth.user_id:}}
 
@@ -41,10 +54,24 @@
 {{pass}}
 	
 	<div class="tab">
-    <button class="tablinks" onclick="openTab(event, 'tenant')">Tenant Listings</button>
-    <button class="tablinks" onclick="openTab(event, 'landlord')">Landlord Listings</button>
-    <button class="tablinks" onclick="openTab(event, 'all')" id="defaultOpen">View All</button>
+        <div class="dropdown">
+          <button class="dropbtn">View as</button>
+          <div class="dropdown-content">
+            <button class="tablinks" onclick="openTab(event, 'tenant')">Tenant Listings</button>
+            <button class="tablinks" onclick="openTab(event, 'landlord')">Landlord Listings</button>
+            <button class="tablinks" onclick="openTab(event, 'all')" id="defaultOpen">View All</button>
+          </div>
+        </div>
     </div>
+
+    <!--<div class="dropdown">
+      <button class="dropbtn">View as</button>
+      <div class="dropdown-content">
+        <button class="tablinks" onclick="openTab(event, 'tenant')">Tenant Listings</button>
+        <button class="tablinks" onclick="openTab(event, 'landlord')">Landlord Listings</button>
+        <button class="tablinks" onclick="openTab(event, 'all')" id="defaultOpen">View All</button>
+      </div>
+    </div>-->
 
     <div id="tenant" class="tabcontent">
 	    <div class="post_list1">
