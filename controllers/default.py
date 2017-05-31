@@ -283,6 +283,7 @@ def edit_Landlord():
 def user():
     """
     exposes:
+    http://..../[app]/default/splash
     http://..../[app]/default/user/login
     http://..../[app]/default/user/logout
     http://..../[app]/default/user/register
