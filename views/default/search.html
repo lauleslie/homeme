@@ -1,18 +1,17 @@
 {{extend 'layout.html'}}
-<h2>Advance Searching</h2>
+
+<h2>Advanced Search</h2>
 {{=form}}
 {{if people:}}
-<h3>Results</h3>
-<table>
-   {{for user in people:}}
-   <td>{{=A(name_of(user), _href=URL('profile',args=user.id))}}</td>
-
-   {{pass}}
-</table>
+    <h3>Results</h3>
+    <table>
+       {{for user in people:}}
+           <td>{{=A(name_of(user), _href=URL('profile',args=user.id))}}</td>
+       {{pass}}
+    </table>
 {{pass}}
 
 <p>Search for people in your City<button onclick="alert('GAYYYYYYYYYYYYYYYYYy')">Search</button></p>
-
 
 <p>Search for people in your County<button onclick="alert('GAYYYYYYYYYYYYYYYYYy')">Search</button></p>
 

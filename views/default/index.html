@@ -1,55 +1,48 @@
 {{extend 'layout.html'}}
 <script src="https://use.fontawesome.com/2a89db6bb1.js"></script>
 <link rel="stylesheet" href="{{=URL('static','css/index.css')}}"/>
+
+<div class="navbar">
+    <div class="logo">
+        <img src="http://i.imgur.com/yRFFTxA.jpg" height="50px"/>
+    </div>
+
+    <nav>
+        <a href="{{=URL('default', 'aboutus')}}">About Us</a>
+        <a href="{{=URL('default', 'user', args=['login'])}}"> Get Started</a>
+        <a href="{{=URL('default', 'profile')}}">Profile</a>
+        <a href="{{=URL('default', 'user', args=['logout'])}}">Logout</a>
+    </nav>
+</div>
+
 <div class="post_listing center">
 {{if auth.user_id:}}
 
-<!-- below is the old code for posting and viewing the profile
-    <div class="post_list_header text-right">
-        <a href="{{=URL('default', 'edit')}}" class="btn btn-warning">
-            <i class="fa fa-plus"></i> New Post as Tenant
-        </a>
+    <div class="profile-search">
+        <center>
+            <h4>Search for a user:</h4>
+            {{=form}}
+        </center>
+            {{if people:}}
+            <h4 align="left">Results:</h4>
+            <table>
+                {{for user in people:}}
+                    <tr>
+                        <td>{{=A(name_of(user), _href=URL('profile',args=user.id))}}</td>
+                    </tr>
+                {{pass}}
+            </table>
+            {{pass}}
+        <a href="{{=URL('default', 'search')}}" type="button" class="btn btn-primary"> Advanced search</a>
     </div>
 
-    <div class="post_landlord_header text-right">
-        <a href="{{=URL('default', 'edit_Landlord')}}" class="btn btn-warning">
-            <i class="fa fa-plus"></i> New Post as Landlord
-        </a>
-    </div>
+    <a href="{{=URL('default', 'edit')}}" type="button" class="btn btn-primary">
+        <i class="fa fa-plus"></i> Post as Tenant</a>
+    <a href="{{=URL('default', 'edit_Landlord')}}" type="button" class="btn btn-primary">
+        <i class="fa fa-plus"></i> Post as Landlord</a>
+    <a href="{{=URL('default', 'profile')}}" type="button" class="btn btn-info">
+        <i class="fa fa-user-circle" aria-hidden="true"></i> View my profile</a>
 
-
-    <div class="go_to_profile text-right">
-        <a href="{{=URL('default', 'profile')}}" class="btn btn-warning">
-            <i> VIEW MY PROFILE </i>
-        </a>
-    </div>
-
-  -->
-
-    <a href="{{=URL('default', 'edit')}}" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Post as Tenant</a>
-    <a href="{{=URL('default', 'edit_Landlord')}}" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Post as Landlord</a>
-    <a href="{{=URL('default', 'profile')}}" type="button" class="btn btn-info"><i class="fa fa-user-circle" aria-hidden="true"></i> View my profile</a>
-
-
-<div class="profilesearch">
-  <center>
-      <h4>Search for a user:</h4>
-      {{=form}}
-  </center>
-    {{if people:}}
-    <h4 align="left">Results:</h4>
-    <table>
-       {{for user in people:}}
-       <tr>
-         <td>{{=A(name_of(user), _href=URL('profile',args=user.id))}}
-         </td>
-       </tr>
-
-       {{pass}}
-    </table>
-    {{pass}}
-    <a href="{{=URL('default', 'search')}}" type="button" class="btn btn-primary"> Advance searching</a>
-</div>
 
 {{else:}}
 
@@ -61,10 +54,24 @@
 {{pass}}
 
 	<div class="tab">
-    <button class="tablinks" onclick="openTab(event, 'tenant')">Tenant Listings</button>
-    <button class="tablinks" onclick="openTab(event, 'landlord')">Landlord Listings</button>
-    <button class="tablinks" onclick="openTab(event, 'all')" id="defaultOpen">View All</button>
+        <div class="dropdown">
+          <button class="dropbtn">View as</button>
+          <div class="dropdown-content">
+            <button class="tablinks" onclick="openTab(event, 'tenant')">Tenant Listings</button>
+            <button class="tablinks" onclick="openTab(event, 'landlord')">Landlord Listings</button>
+            <button class="tablinks" onclick="openTab(event, 'all')" id="defaultOpen">View All</button>
+          </div>
+        </div>
     </div>
+
+    <!--<div class="dropdown">
+      <button class="dropbtn">View as</button>
+      <div class="dropdown-content">
+        <button class="tablinks" onclick="openTab(event, 'tenant')">Tenant Listings</button>
+        <button class="tablinks" onclick="openTab(event, 'landlord')">Landlord Listings</button>
+        <button class="tablinks" onclick="openTab(event, 'all')" id="defaultOpen">View All</button>
+      </div>
+    </div>-->
 
     <div id="tenant" class="tabcontent">
 	    <div class="post_list1">
@@ -239,7 +246,7 @@
 			{{pass}}
 		</div>
 
-		<div class="profilelan" style="width:45%;padding:0 10pt 0 0;float:right;">
+		<div class="profilelan" style="width:45%;padding:0 10pt 0 0;float:left;">
         	<strong>Profile Posts</strong><br>
         	<div class="post_list1">
 	    		<h3>Buggy landlord posting</h3>
