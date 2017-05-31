@@ -27,8 +27,9 @@ HomeMe | Homies | HomeMe | Early June | 1.0 | April 10th, 2017
 
 ### Sprint 3
 
-* User story 1: As a user of, I would like to make and reply to comments on a property posting
-* User story 2: As a landlord, I would like to see any future tenants’ communication
+* User story 1: As a user, I would like to share contact information with landlords. 
+* User story 2: As a user, I would like to see a property listing grid with pictures (Craigslist-style).
+* User story 3: As a user, I would like to see that all the shit looks good and is not buggy.
 
 ### Product Backlog
 

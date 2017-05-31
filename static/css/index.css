@@ -1,0 +1,56 @@
+body {
+font-family: 'Open Sans', sans-serif !important;
+}
+
+a {
+  color: #88A087;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #96ab95;
+}
+
+form {
+  width: 50%;
+}
+
+.profilesearch {
+  background-color: #eee;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+.btn {
+  background-color: #88A087 !important;
+  border-radius: 10px;
+}
+
+.btn:hover {
+  box-shadow: none !important;
+}
+
+/* table row numbering */
+/* courtesy of http://stackoverflow.com/questions/35862715/create-html-table-with-increment-number-of-column */
+table {
+    counter-reset: rowNumber;
+}
+
+table tr {
+    counter-increment: rowNumber;
+}
+
+table tr td:first-child::before {
+    content: counter(rowNumber);
+    min-width: 1em;
+    margin-right: 0.5em;
+}
+.post_list1 {
+  padding: 30px;
+}
+
+.post1 {
+  border-bottom: 1px solid #cccccc;
+  padding: 30px;
+  padding-bottom: 30px;
+}

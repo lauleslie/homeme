@@ -27,6 +27,20 @@
     </div>
 
 </div>
+
+
+
+<h2>Housemates</h2>
+
+  <a href="{{=URL('default', 'edit_mates')}}" type="button" class="btn btn-primary"></i> Edit my ousemate</a>
+
+<table>
+  {{for friend in requests:}}
+  <tr>
+    <td>{{=A(name_of(friend.auth_user),_href=URL('wall',args=friend.auth_user.id))}}</td>
+  </tr>
+  {{pass}}
+</table>
 <!-- <div class="go_to_index text-center">
     <a href="{{=URL('default', 'index')}}" class="btn btn-warning">
         HOME

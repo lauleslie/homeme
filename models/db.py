@@ -81,9 +81,9 @@ crud, service, plugins = Crud(db), Service(), PluginManager()
 import datetime
 
 auth.settings.extra_fields['auth_user'] = [
-    Field('your_country'),
-    Field('your_state'),
-    Field('your_county'),
+    Field('your_country', label= 'country'),
+    Field('your_state', label = 'state'),
+    Field('your_county', label = 'zip code'),
     Field('landlord', 'boolean'),
     Field('tenant', 'boolean' ), 
     Field('about_yourself', 'text'),

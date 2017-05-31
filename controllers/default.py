@@ -68,6 +68,18 @@ def profile():
 
     user = User(a0 or me)
 
+    friends = db(User.id==Link.src)(Link.target==me).select(orderby=alphabetical)
+    requests = db(User.id==Link.target)(Link.src==me).select(orderby=alphabetical)
+
+    return locals()
+
+def edit_mates():
+
+
+    user = User(a0 or me)
+
+    friends = db(User.id==Link.src)(Link.target==me).select(orderby=alphabetical)
+    requests = db(User.id==Link.target)(Link.src==me).select(orderby=alphabetical)
 
     return locals()
 
@@ -79,39 +91,35 @@ def geo(form):
 @auth.requires_login()
 def search():
     posts = db().select(
-        orderby=~db.post.updated_on,
+        orderby=~db.post_landlord.updatedon,
         limitby=(0, 5)
     )
+    
     form = SQLFORM.factory(Field('name',requires=IS_NOT_EMPTY()),
                           Field('search_county', label ='find users in your zip code'),
-                          Field('search_states', label ='find users in your province')
+                          Field('search_states', label ='find users in your province')#,
+                          #Field('search_email', label ='find users by email'),
                           )
     if form.accepts(request):
         tokens = form.vars.name.split()
         statee = form.vars.search_states
         countyy = form.vars.search_county
+        #emaill = form.vars.search_email
         query = reduce(lambda a,b:a&b,
                        [User.first_name.contains(k)|User.last_name.contains(k) \
                             for k in tokens])
         query &= User.your_county.contains(countyy)
         query &= User.your_state.contains(statee)
+        #query &= User.auth_user.email.contains(emaill)
+
 
         people = db(query).select(orderby=alphabetical)
     else:
         people = []
     
 
-    latitude = ""
-    longtitude = ''
-    form1=SQLFORM.factory(Field('search',requires=IS_NOT_EMPTY()))
-    if form1.accepts(request):
-        address=form.vars.search1
-        (latitude, longitude) = geocode(address)
-    else:
-        (latitude, longitude) = ('','')
-    return locals()
 
-    return dict(form1=form1, latitude=latitude, longitude=longitude)
+    return locals()
 
 @auth.requires_login()
 def edit():
@@ -200,18 +208,19 @@ def edit():
             p.number_of_people = form.vars.number_of_people
             p.description = form.vars.description
             p.my_city = form.vars.my_city
+            p.longitude = ""
+            p.latitude = ""
+            (p.longitude,p.latitude) = geocode(form.vars.my_city+', United States')
             p.updated_on = datetime.datetime.utcnow()
             p.update_record()
-            (p.latitude, p.longitude) = geocode(p.my_city)
 
         redirect(URL('default', 'index'))
     elif form.errors:
-        (p.latitude, p.longitude) = ('','')
+        (form.vars.longitude,form.vars.latitude) = ('','')
         session.flash = T('Get it right this time')
 
     # return dict(form=form, button_list=button_list, p=p, form_type=form_type, post_list=post_list)
-    return dict(form=form,onvalidation=geo)
-
+    return locals()
 
 @auth.requires_login()
 def edit_Landlord():
@@ -231,8 +240,8 @@ def edit_Landlord():
         # URL is referencing specific post
         # Check that post exists and if user is author of post
         # first() used to get either first element or none instead of iterator
-        query = ((db.post.user_email == auth.user.email) &
-                 (db.post.id == request.args(0)))
+        query = ((db.post_landlord.user_email == auth.user.email) &
+                 (db.post_landlord.id == request.args(0)))
 
         p = db(query).select().first()
         if p is None:
@@ -267,7 +276,7 @@ def edit_Landlord():
         # Update created_on and updated_on date
         # Take time stamp of when post created only once, no need to update
         # p.created_on = datetime.datetime.utcnow()
-        p.updated_on = datetime.datetime.utcnow()
+        p.updatedon = datetime.datetime.utcnow()
         # Updates actual database
         p.update_record()
 
@@ -303,15 +312,39 @@ def edit_Landlord():
             p.pets = form.vars.pets
             p.more_info = form.vars.more_info
             p.picture = form.vars.picture
-            p.updated_on = datetime.datetime.utcnow()
+            p.longitude = ""
+            p.latitude = ""
+            (p.longitude,p.latitude) = geocode(form.vars.my_address+ form.vars.my_city+ form.vars.my_state + ', United States')
+            p.updatedon = datetime.datetime.utcnow()
             p.update_record()
 
         redirect(URL('default', 'index'))
     elif form.errors:
+        (form.vars.longitude,form.vars.latitude) = ('','')
         session.flash = T('Get it right this time')
 
     # return dict(form=form, button_list=button_list, p=p, form_type=form_type, post_list=post_list)
-    return dict(form=form,onvalidation=geo)
+    return dict(form=form)
+
+# using ajax to setup links
+@auth.requires_login()
+def housemate_link():
+    if request.env.request_method!='POST': raise HTTP(400)
+    if a0=='request' and not Link(src=a1,target=me):
+        # insert a new friendship request
+        Link.insert(src=me,target=a1)
+    elif a0=='accept':
+        # accept an existing friendship request
+        db(Link.target==me)(Link.src==a1).update(accepted=True)
+        if not db(Link.src==me)(Link.target==a1).count():
+            Link.insert(src=me,target=a1)
+    elif a0=='deny':
+        # deny an existing friendship request
+        db(Link.target==me)(Link.src==a1).delete()
+    elif a0=='remove':
+        # delete a previous friendship request
+        db(Link.src==me)(Link.target==a1).delete()
+
 
 def user():
     """

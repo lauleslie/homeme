@@ -37,8 +37,8 @@
         }
         
         {{for row in posts:}}{{if row.latitude and row.longitude:}}
-          var point = new GLatLng({{=row.latitude}},{{=row.longitude}});
-          map.addOverlay(createMarker(point, 0, "here you is"));
+          var point = new GLatLng({{=row.longitude}},{{=row.latitude}});
+          map.addOverlay(createMarker(point, 0, "{{=row.my_address}}"));
         {{pass}}{{pass}}
         
      }

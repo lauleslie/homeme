@@ -1,0 +1,22 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: #333;
+  padding-top: 70px;
+}
+
+a {
+  color: #808080;
+  transition: all 0.5s ease;
+}
+
+a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.btn {
+  border-radius: 50%;
+}
+
+/*jumbotron styling*/
+.jumbotron { background-color: #fff; padding: 20px;}

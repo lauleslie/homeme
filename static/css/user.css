@@ -1,0 +1,40 @@
+body {
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 12px;
+  background: url('https://static.pexels.com/photos/299629/pexels-photo-299629.jpeg');
+  background-size: cover;
+}
+
+h2 {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+p {
+  text-align: center;
+}
+
+.accountContainer {
+  background-color: #FFF;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px;
+  margin-top: 30px;
+  margin-bottom: 100px;
+  border-top: 10px solid #88A087;
+  overflow-x: hidden;
+}
+
+.btn {
+  background-color: #88A087 !important;
+  border-radius: 10px;
+}
+
+.btn:hover {
+  box-shadow: none !important;
+}
+
+form {
+  width: auto;
+}

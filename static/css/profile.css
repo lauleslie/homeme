@@ -1,0 +1,32 @@
+body {
+  font-family: 'Open Sans', sans-serif !important;
+  background-image: url('https://static.pexels.com/photos/317356/pexels-photo-317356.jpeg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+.btn {
+  background-color: #88A087 !important;
+  border-radius: 10px;
+}
+
+.btn:hover {
+  box-shadow: none !important;
+}
+
+.profile {
+  margin-top: 30px;
+}
+
+.profilecard {
+  background-color: #fff;
+  border: none;
+  padding: 30px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}

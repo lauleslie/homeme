@@ -3,43 +3,22 @@
 {{=form}}
 
 {{if people:}}
-<h3>Results</h3>
+<h3>Search for People</h3>
 <table>
    {{for user in people:}}
-   <td>{{=A(name_of(user), _href=URL('profile',args=user.id))}}</td>
-
+   <td>{{=A(name_of(user), _href=URL('profile',args=user.id))}}    </td>
+   <td><button onclick="ajax('{{=URL('housemate_link',args=('request',user.id))}}',[],null);$(this).parent().html('request sent')">request housemate</button></td>
    {{pass}}
 </table>
 {{pass}}
 
 
-<a1>Search in a Map</a1>
-<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
 
-<script src="{{=URL('static','js/gmaps.js')}}"></script>
-<div>
+<h3>Find Houses For Rent Near You</h3>
 
+{{include 'default/maps.html'}}
+{{for row in posts:}}{{if row.latitude and row.longitude:}}
+<p>row.latitude, row.longtitude: {{=row.latitude}},{{=row.longitude}}</p>
+{{pass}}{{pass}}
 
-{{=form1}}
-</div>
-{{if longitude or latitude:}}
-	<p>latitude, longtitude: {{=latitude}},{{=longitude}}</p>
-	<div id="map" style="height:400px;width:800px"></div>
-	<script>
-	$(document).ready(function(){
-	  map = new GMaps({
-	    div: '#map',
-	    lat: {{=latitude}},
-	    lng: {{=longitude}}
-	  });
-	   map.addMarker({
-	    lat: {{=latitude}},
-	    lng: {{=longitude}},
-	    title: 'Here!',
-	    infoWindow: {
-	        content: '<p>{{=request.vars.search}}</p>'
-	    }
-	  });
-	});
-	</script>
-{{pass}}
+{{=posts}}

@@ -22,8 +22,8 @@ db.define_table('post',
                 Field('number_of_people'),
                 Field('description'),
                 Field('my_city'),
-                Field('latitude','double',writable=False,readable=False),
-                Field('longitude','double',writable=False,readable=False),
+                Field('latitude','double',writable=False),
+                Field('longitude','double',writable=False)
                 )
 
                 #landlord stuff
@@ -41,15 +41,24 @@ db.define_table('post_landlord',
                  Field('furnish', 'boolean'),
                  Field('pets', 'boolean'),
                  Field('more_info', 'text'),
-                 Field('picture', 'upload')
+                 Field('picture', 'upload'),
+                 Field('latitude','double',writable=False),
+                 Field('longitude','double',writable=False)
                 )
 
 
 
 
+# a table to link two people
+db.define_table('link',
+    Field('src','reference auth_user'),
+    Field('target','reference auth_user'),
+    Field('accepted','boolean',default=False))
+
 # and define some global variables that will make code more compact
-User, Post = db.auth_user,db.post
-me, a0 = auth.user_id, request.args(0)
+User, Link, Post = db.auth_user, db.link, db.post
+me, a0, a1 = auth.user_id, request.args(0), request.args(1)
+myfriends = db(Link.src==me)(Link.accepted==True)
 alphabetical = User.first_name|User.last_name
 def name_of(user): return '%(first_name)s %(last_name)s' % user
 
