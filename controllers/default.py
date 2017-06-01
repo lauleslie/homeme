@@ -18,6 +18,12 @@ def get_user_name_from_email(email):
     else:
         return ' '.join([u.first_name, u.last_name])
 
+def grid():
+    posts2 = db().select(
+        orderby=~db.post_landlord.updatedon
+    )
+    firstlast = get_user_name_from_email
+    return dict(posts2= posts2, firstlast=firstlast)
 
 def splash():
     return dict()
