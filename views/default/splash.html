@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="{{=URL('static','css/splash.css')}}"/>
+{{block head}}
+<script src="{{=URL('static', 'js/vue.js')}}"></script>
+<script>
+    // All URLs go here
+</script>
+{{end}}
+
+<div class="main_content">
+    <header>
+        <div class="logo">
+          <img src="http://i.imgur.com/yRFFTxA.jpg" height="50px"/>
+        </div>
+
+        <div>
+
+        </div>
+        <nav>
+            <a href="{{=URL('default', 'aboutus')}}">About Us</a>
+            <a href="{{=URL('default', 'user', args=['login'])}}"> Get Started</a>
+            <a href="{{=URL('default', 'profile')}}">Profile</a>
+            <a href="{{=URL('default', 'user', args=['logout'])}}">Logout</a>
+        </nav>
+        <h1>HomeMe</h1>
+        <p class="caption">
+            HomeMe is an intuitive, simple,
+            and easy-to-use web application that connects potential
+            tenants to landlords using a network of profiles and
+            property listings.
+        </p>
+        <div class="button_container">
+            <a href="{{=URL('default', 'user', args=['login'])}}" class="btn btn-lg signup_button">
+                Get Started
+            </a>
+        </div>
+    </header>
+</div>
