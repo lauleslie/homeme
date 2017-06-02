@@ -59,7 +59,7 @@
 
 
 {{pass}}
-    
+
     <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'tenant')">Tenant Listings</button>
     <button class="tablinks" onclick="openTab(event, 'landlord')">Landlord Listings</button>
@@ -91,7 +91,7 @@
                         <em>{{=p.created_on.hour}}:{{=p.created_on.minute}}</em>
                         <em>on {{=p.created_on.month}}/{{=p.created_on.day}}/{{=p.created_on.year}}</em>
 
-                    {else:}}
+                    {{else:}}
                         <em>{{=p.updated_on.hour}}:{{=p.updated_on.minute}}</em>
                         <em>on {{=p.updated_on.month}}/{{=p.updated_on.day}}/{{=p.updated_on.year}}</em>
                     {{pass}}
@@ -170,7 +170,7 @@
                         <em>on {{=p.createdon.month}}/{{=p.createdon.day}}/{{=p.createdon.year}}</em>
 
                     {{else:}}
-                        <em>{{=p.updatedon.hour}}:{{=p.updatedon.minute}}</em> 
+                        <em>{{=p.updatedon.hour}}:{{=p.updatedon.minute}}</em>
                         <em>on {{=p.updatedon.month}}/{{=p.updatedon.day}}/{{=p.updatedon.year}}</em>
                     {{pass}}
 
@@ -217,7 +217,7 @@
                             <em>{{=p.created_on.hour}}:{{=p.created_on.minute}}</em>
                             <em>on {{=p.created_on.month}}/{{=p.created_on.day}}/{{=p.created_on.year}}</em>
 
-                        {else:}}
+                        {{else:}}
                             <em>{{=p.updated_on.hour}}:{{=p.updated_on.minute}}</em>
                             <em>on {{=p.updated_on.month}}/{{=p.updated_on.day}}/{{=p.updated_on.year}}</em>
                         {{pass}}
@@ -298,7 +298,7 @@
                             <em>on {{=p.createdon.month}}/{{=p.createdon.day}}/{{=p.createdon.year}}</em>
 
                         {{else:}}
-                            <em>{{=p.updatedon.hour}}:{{=p.updatedon.minute}}</em> 
+                            <em>{{=p.updatedon.hour}}:{{=p.updatedon.minute}}</em>
                             <em>on {{=p.updatedon.month}}/{{=p.updatedon.day}}/{{=p.updatedon.year}}</em>
                         {{pass}}
 

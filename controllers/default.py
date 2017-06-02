@@ -19,7 +19,6 @@ def get_user_name_from_email(email):
     else:
         return ' '.join([u.first_name, u.last_name])
 
-
 def splash():
     return dict()
 
@@ -65,7 +64,6 @@ def index():
 
 def profile():
 
-
     user = User(a0 or me)
 
     friends = db(User.id==Link.src)(Link.target==me).select(orderby=alphabetical)
@@ -80,6 +78,7 @@ def profile():
     )
 
     return locals()
+
 
 def edit_mates():
 
@@ -110,7 +109,7 @@ def search():
         orderby=~db.post_landlord.updatedon,
         limitby=(0, 5)
     )
-    
+
     form = SQLFORM.factory(Field('name',requires=IS_NOT_EMPTY()),
                           Field('search_county', label ='find users in your zip code'),
                           Field('search_states', label ='find users in your province')#,
@@ -132,7 +131,7 @@ def search():
         people = db(query).select(orderby=alphabetical)
     else:
         people = []
-    
+
 
 
     return locals()

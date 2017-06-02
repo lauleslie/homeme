@@ -42,13 +42,3 @@ form {
   text-transform: capitalize;
   width: auto;
 }
-
-.btn {
-  background-color: #88A087 !important;
-  border-radius: 10px;
-  border: 1px solid #88A087 !important;
-}
-
-.btn:hover {
-  box-shadow: none !important;
-}

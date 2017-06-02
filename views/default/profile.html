@@ -1,30 +1,150 @@
-{{extend 'layout.html'}}
+<!DOCTYPE html>
+<html>
+<head>
 <link rel="stylesheet" href="{{=URL('static','css/profile.css')}}"/>
-<title>MY PROFILE</title>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://use.fontawesome.com/2a89db6bb1.js"></script>
+</head>
+<body>
+<title>{{=user.first_name}} {{=user.last_name}}'s Profile</title>
 <div class="my profile">
 {{pass}}
     <div class="profile">
       <div class="profilecard">
-        <h1> {{=user.first_name}} {{=user.last_name}}'s profile</h1>
-        {{=crud.read(db.auth_user,user)}}
+        <a href="{{=URL('default', 'index')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> HOME</a>
+        <h1>
+            {{=user.first_name}} {{=user.last_name}}'s profile
+            <small>
+               <a href="{{=URL('default', 'user', args=['profile'])}}">
+                      <i class="fa fa-cog" aria-hidden="true"></i>
+              </a>
+            </small>
 
-        <a href="{{=URL('default', 'user', args=['profile'])}}" class="btn btn-info" role="button">
-	   		Edit Profile
-	    </a>
+        </h1>
+        <p>{{=crud.read(db.auth_user,user)}}</p>
 
-      <a href="{{=URL('default', 'index')}}" class="btn btn-warning">
-          HOME
-      </a>
+        <!-- accordion -->
+        <button class="accordion">View posts by {{=user.first_name}} {{=user.last_name}}</button>
+        <div class="panel">
+          <p>
+            <span class="badge badge-pill badge-default">Tenant Posts</span>
+            {{for p in posts:}}
+              {{if p.user_email == user.email:}}
+                  <div class="post1 text-left">
+                    <!-- Here goes the code to display an individual post. The code below is just a placeholder. -->
+                    <h3>{{=p.post_content}}</h3>
+                    <strong>Budget:</strong> ${{=p.min_budget}} to ${{=p.max_budget}}
+                    </p>
+                    <p><strong>Description:</strong> {{=p.description}}
+                    </p>
+                    <p><strong>Number of People:</strong> {{=p.number_of_people}}
+                    </p>
 
+                    <div class="post_details text-left">
+
+                      {{if p.created_on == p.updated_on:}}
+                        <em>{{=p.created_on.hour}}:{{=p.created_on.minute}}</em>
+                        <em>on {{=p.created_on.month}}/{{=p.created_on.day}}/{{=p.created_on.year}}</em>
+
+                      {{else:}}
+                         <em>{{=p.updated_on.hour}}:{{=p.updated_on.minute}}</em>
+                         <em>on {{=p.updated_on.month}}/{{=p.updated_on.day}}/{{=p.updated_on.year}}</em>
+                      {{pass}}
+
+                      {{if auth.user is not None:}}
+                        {{if p.user_email == auth.user.email:}} |
+                          <a href="{{=URL('default', 'edit', args=[p.id], vars=dict(edit='true'))}}">
+                           Click to edit
+                          </a>
+                        {{pass}}
+                      {{pass}}
+                    </div>
+                  </div>
+              {{pass}}
+            {{pass}}
+          </p>
+          <div class="lilborder"></div>
+          <!-- landlord posting -->
+          <p>
+            <span class="badge badge-pill badge-default">Landlord posts</span>
+            {{for p in posts2:}}
+              {{if p.user_email == user.email:}}
+                  <div class="post1 text-left">
+                      <!-- Here goes the code to display an individual post. The code below is just a placeholder. -->
+                      {{if p.picture:}} <p><img src="{{=URL('default', 'download', args=p.picture)}}" width="50%"/></p>
+                      {{else: }} <p><h3>No picture uploaded.</h3></p>
+                      {{pass}}
+
+                      {{if p.my_address:}}
+                        <p><strong>Location: </strong>{{=p.my_address}} {{=p.my_city}}, {{=p.my_state}}</p>
+                      {{else: }}
+                      {{pass}}
+
+                      {{if p.sq_ft:}}
+                        <p><strong>Square feet: </strong> {{=p.sq_ft}}</p>
+                      {{else:}}
+                      {{pass}}
+
+                      {{if p.num_bed and p.num_bath:}}
+                      <p><strong>Bed/bath: </strong> {{=p.num_bed}} beds and {{=p.num_bath}} baths</p>
+                      {{pass}}
+
+                      {{if p.washdry:}}<p><strong>Washer: </strong>
+                      {{if p.washdry == False:}} No
+                      {{else:}} Yes
+                      {{pass}}
+                      {{pass}}
+                      </p>
+
+                      {{if p.pets:}}
+                      <p><strong>Pets: </strong>
+                      {{if p.pets == False:}} No
+                      {{else:}} Yes
+                      {{pass}}
+                      {{pass}}
+                      </p>
+
+                      {{if p.furnish:}}
+                      <p><strong>Furnished: </strong>
+                      {{if p.furnish == False:}} No
+                      {{else:}} Yes
+                      {{pass}}
+                      {{pass}}
+                      </p>
+
+                      {{if p.more_info:}}
+                      <p><strong>More info: </strong> {{=p.more_info}} </p>
+                      {{pass}}
+
+                      <div class="post_details text-left">
+
+                          {{if p.createdon == p.updatedon:}}
+                              <em>{{=p.createdon.hour}}:{{=p.createdon.minute}}</em>
+                              <em>on {{=p.createdon.month}}/{{=p.createdon.day}}/{{=p.createdon.year}}</em>
+
+                          {{else:}}
+                              <em>{{=p.updatedon.hour}}:{{=p.updatedon.minute}}</em>
+                              <em>on {{=p.updatedon.month}}/{{=p.updatedon.day}}/{{=p.updatedon.year}}</em>
+                          {{pass}}
+
+                          {{if auth.user is not None:}}
+                              {{if p.user_email == auth.user.email:}}
+                                  | <a href="{{=URL('default', 'edit_Landlord', args=[p.id], vars=dict(edit='true'))}}">
+                                      Click to edit
+                                  </a>
+                              {{pass}}
+                          {{pass}}
+                      </div>
+                  </div>
+              {{pass}}
+            {{pass}}
+          </p>
+        </div>
     </div>
-
   {{pass}}
     </div>
-
 </div>
-
-
 
 <h2>Housemates</h2>
 
@@ -39,127 +159,22 @@
 </table>
 
 
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
 
-<!--Profile posts-->
-<div class="proften" style="width:45%;padding:0 10pt 0 0;float:right;">
-  <div class="post_list1">
-    {{for p in posts:}}
-      {{if p.user_email == user.email:}}
-          <div class="post1 text-left">
-            <!-- Here goes the code to display an individual post. The code below is just a placeholder. -->
-            <h3>{{=p.post_content}}</h3>
-            <strong>Budget:</strong> ${{=p.min_budget}} to ${{=p.max_budget}}
-            </p>
-            <p><strong>Description:</strong> {{=p.description}}
-            </p>
-            <p><strong>Number of People:</strong> {{=p.number_of_people}}
-            </p>
+for (i = 0; i < acc.length; i++) {
+  acc[i].onclick = function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight){
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  }
+}
+</script>
 
-            <div class="post_details text-left">
-
-              {{if p.created_on == p.updated_on:}}
-                <em>{{=p.created_on.hour}}:{{=p.created_on.minute}}</em>
-                <em>on {{=p.created_on.month}}/{{=p.created_on.day}}/{{=p.created_on.year}}</em>
-
-              {{else:}}
-                 <em>{{=p.updated_on.hour}}:{{=p.updated_on.minute}}</em>
-                 <em>on {{=p.updated_on.month}}/{{=p.updated_on.day}}/{{=p.updated_on.year}}</em>
-              {{pass}}
-
-              {{if auth.user is not None:}}
-                {{if p.user_email == auth.user.email:}}
-                  <a href="{{=URL('default', 'edit', args=[p.id], vars=dict(edit='true'))}}">
-                  Click to edit
-                  </a>
-                {{pass}}
-              {{pass}}
-            </div>
-          </div>
-      {{pass}}
-          {{pass}}
-      </div>
-    </div>
-
-    <div class="proflan" style="width:45%;padding:0 10pt 0 0;float:left">
-        <div class="post_list1">
-          {{for p in posts2:}}
-            {{if p.user_email == user.email:}}
-                <div class="post1 text-left">
-                    <!-- Here goes the code to display an individual post. The code below is just a placeholder. -->
-                    {{if p.picture:}} <p><img src="{{=URL('default', 'download', args=p.picture)}}" width="30%"/></p>
-                    {{else: }} <p><h3>No picture uploaded.</h3></p>
-                    {{pass}}
-
-                    {{if p.my_address:}}
-                      <p><strong>Location: </strong>{{=p.my_address}} {{=p.my_city}}, {{=p.my_state}}</p>
-                    {{else: }}
-                    {{pass}}
-
-                    {{if p.sq_ft:}}
-                      <p><strong>Square feet: </strong> {{=p.sq_ft}}</p>
-                    {{else:}}
-                    {{pass}}
-
-                    {{if p.num_bed and p.num_bath:}}
-                    <p><strong>Bed/bath: </strong> {{=p.num_bed}} beds and {{=p.num_bath}} baths</p>
-                    {{pass}}
-
-                    {{if p.washdry:}}<p><strong>Washer: </strong>
-                    {{if p.washdry == False:}} No
-                    {{else:}} Yes
-                    {{pass}}
-                    {{pass}}
-                    </p>
-
-                    {{if p.pets:}}
-                    <p><strong>Pets: </strong>
-                    {{if p.pets == False:}} No
-                    {{else:}} Yes
-                    {{pass}}
-                    {{pass}}
-                    </p>
-
-                    {{if p.furnish:}}
-                    <p><strong>Furnished: </strong>
-                    {{if p.furnish == False:}} No
-                    {{else:}} Yes
-                    {{pass}}
-                    {{pass}}
-                    </p>
-
-                    {{if p.more_info:}}
-                    <p><strong>More info: </strong> {{=p.more_info}} </p>
-                    {{pass}}
-
-                    <div class="post_details text-left">
-
-                        {{if p.createdon == p.updatedon:}}
-                            <em>{{=p.createdon.hour}}:{{=p.createdon.minute}}</em>
-                            <em>on {{=p.createdon.month}}/{{=p.createdon.day}}/{{=p.createdon.year}}</em>
-
-                        {{else:}}
-                            <em>{{=p.updatedon.hour}}:{{=p.updatedon.minute}}</em> 
-                            <em>on {{=p.updatedon.month}}/{{=p.updatedon.day}}/{{=p.updatedon.year}}</em>
-                        {{pass}}
-
-                        {{if auth.user is not None:}}
-                            {{if p.user_email == auth.user.email:}}
-                                | <a href="{{=URL('default', 'edit_Landlord', args=[p.id], vars=dict(edit='true'))}}">
-                                    Click to edit
-                                </a>
-                            {{pass}}
-                        {{pass}}
-                    </div>
-                </div>
-            {{pass}}
-          {{pass}}
-      </div>
-    </div>
-    <!--Profile posts-->
-<!-- <div class="go_to_index text-center">
-    <a href="{{=URL('default', 'index')}}" class="btn btn-warning">
-        HOME
-    </a>
-</div>
-
--->
+</body>
+</html>

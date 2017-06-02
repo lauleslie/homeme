@@ -1,17 +1,27 @@
-<link rel="stylesheet" href="{{=URL('static','css/search.css')}}"/>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-<script src="https://use.fontawesome.com/2a89db6bb1.js"></script>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{=URL('static','css/search.css')}}"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://use.fontawesome.com/2a89db6bb1.js"></script>
+
+</head>
+<body>
+
 <div class="container">
 <div class="searchbody">
 <h2><a href="{{=URL('default', 'index')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> HOME</a></h2>
-<h1>Advanced Searching</h1>
+<h3>Advanced Searching</h3>
 {{=form}}
 
 {{if people:}}
-<h3>Search for People</h3>
+<h3>Results:</h3>
 <table>
    {{for user in people:}}
-   <td>{{=A(name_of(user), _href=URL('profile',args=user.id))}}    </td>
+   <td>{{=A(name_of(user), _href=URL('profile',args=user.id))}} </td>
    <td><button onclick="ajax('{{=URL('housemate_link',args=('request',user.id))}}',[],null);$(this).parent().html('request sent')">request housemate</button></td>
    {{pass}}
 </table>
@@ -29,3 +39,6 @@
 {{=posts}}
 </div>
 </div>
+
+</body>
+</html>
