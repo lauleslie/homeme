@@ -1,32 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<link rel="stylesheet" href="{{=URL('static','css/profile.css')}}"/>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://use.fontawesome.com/2a89db6bb1.js"></script>
+  <title>{{=user.first_name}} {{=user.last_name}}'s Profile</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{=URL('static','css/profile.css')}}"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://use.fontawesome.com/2a89db6bb1.js"></script>
 </head>
 <body>
-<title>{{=user.first_name}} {{=user.last_name}}'s Profile</title>
-<div class="my profile">
-{{pass}}
-    <div class="profile">
-      <div class="profilecard">
-        <a href="{{=URL('default', 'index')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> HOME</a>
-        <h1>
-            {{=user.first_name}} {{=user.last_name}}'s profile
-            <small>
+
+<div class="container">
+  <div class="profilecard">
+    <a href="{{=URL('default', 'index')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> HOME</a>
+    <h1>
+        {{=user.first_name}} {{=user.last_name}}'s profile
+          <small>
                <a href="{{=URL('default', 'user', args=['profile'])}}">
                       <i class="fa fa-cog" aria-hidden="true"></i>
               </a>
             </small>
-
         </h1>
-        <p>{{=crud.read(db.auth_user,user)}}</p>
 
-        <!-- accordion -->
-        <button class="accordion">View posts by {{=user.first_name}} {{=user.last_name}}</button>
-        <div class="panel">
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" href="#main">Profile Info</a></li>
+      <li><a data-toggle="tab" href="#posts">View Posts</a></li>
+      <li><a data-toggle="tab" href="#mates">Housemates</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div id="main" class="tab-pane fade in active">
+        <p>{{=crud.read(db.auth_user,user)}}</p>
+      </div>
+      <div id="posts" class="tab-pane fade">
           <p>
             <span class="badge badge-pill badge-default">Tenant Posts</span>
             {{for p in posts:}}
@@ -44,10 +52,12 @@
                     <div class="post_details text-left">
 
                       {{if p.created_on == p.updated_on:}}
+                      <i class="fa fa-clock-o" aria-hidden="true"></i>
                         <em>{{=p.created_on.hour}}:{{=p.created_on.minute}}</em>
                         <em>on {{=p.created_on.month}}/{{=p.created_on.day}}/{{=p.created_on.year}}</em>
 
                       {{else:}}
+                      <i class="fa fa-clock-o" aria-hidden="true"></i>
                          <em>{{=p.updated_on.hour}}:{{=p.updated_on.minute}}</em>
                          <em>on {{=p.updated_on.month}}/{{=p.updated_on.day}}/{{=p.updated_on.year}}</em>
                       {{pass}}
@@ -120,10 +130,12 @@
                       <div class="post_details text-left">
 
                           {{if p.createdon == p.updatedon:}}
+                          <i class="fa fa-clock-o" aria-hidden="true"></i>
                               <em>{{=p.createdon.hour}}:{{=p.createdon.minute}}</em>
                               <em>on {{=p.createdon.month}}/{{=p.createdon.day}}/{{=p.createdon.year}}</em>
 
                           {{else:}}
+                          <i class="fa fa-clock-o" aria-hidden="true"></i>
                               <em>{{=p.updatedon.hour}}:{{=p.updatedon.minute}}</em>
                               <em>on {{=p.updatedon.month}}/{{=p.updatedon.day}}/{{=p.updatedon.year}}</em>
                           {{pass}}
@@ -140,41 +152,23 @@
               {{pass}}
             {{pass}}
           </p>
-        </div>
+
+      </div>
+      <div id="mates" class="tab-pane fade">
+        <h3>Housemates</h3>
+          <a href="{{=URL('default', 'edit_mates')}}"></i> Edit my housemates</a>
+          <table>
+            {{for friend in requests:}}
+            <tr>
+              <td>{{=A(name_of(friend.auth_user),_href=URL('wall',args=friend.auth_user.id))}}</td>
+            </tr>
+            {{pass}}
+          </table>
+      </div>
+
     </div>
-  {{pass}}
-    </div>
+  </div>
 </div>
-
-<h2>Housemates</h2>
-
-  <a href="{{=URL('default', 'edit_mates')}}" type="button" class="btn btn-primary"></i> Edit my ousemate</a>
-
-<table>
-  {{for friend in requests:}}
-  <tr>
-    <td>{{=A(name_of(friend.auth_user),_href=URL('wall',args=friend.auth_user.id))}}</td>
-  </tr>
-  {{pass}}
-</table>
-
-
-<script>
-var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-  acc[i].onclick = function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.maxHeight){
-      panel.style.maxHeight = null;
-    } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-    }
-  }
-}
-</script>
 
 </body>
 </html>
