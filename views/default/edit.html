@@ -1,4 +1,12 @@
-<h1>Posting as Tenant</h1>
+<link rel="stylesheet" href="{{=URL('static','css/edit.css')}}"/>
+<div class="accountContainer">
 {{extend 'layout.html'}}
-{{is_tenant = True}}
-{{=form}}
+<h2>Posting as Tenant</h2>
+<div class="container">
+    <div class="row">
+        <div id="web2py_user_form" class="col-lg-6">
+        {{=form}}
+      </div>
+    </div>
+  </div>
+</div>

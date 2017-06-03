@@ -4,7 +4,7 @@ body {
           rgba(0, 0, 0, 0.1),
           rgba(0, 0, 0, 0.1)
       ),
-      url(https://static.pexels.com/photos/2459/stairs-home-loft-lifestyle.jpg)
+      url(https://static.pexels.com/photos/82256/pexels-photo-82256.jpeg)
       no-repeat center;
   background-size: cover;
   font-family: 'Open Sans', sans-serif !important;
@@ -41,4 +41,14 @@ p {
 form {
   text-transform: capitalize;
   width: auto;
+}
+
+.btn {
+  background-color: #88A087 !important;
+  border-radius: 10px;
+  border: 1px solid #88A087 !important;
+}
+
+.btn:hover {
+  box-shadow: none !important;
 }

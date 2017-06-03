@@ -2,6 +2,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   color: #333;
   font-size: 13px;
+  background-color: #fff;
 }
 
 a {
@@ -18,6 +19,7 @@ a:hover {
 .jumbotron {
   padding: 20px;
   margin: auto;
+  background-color: #fff !important;
 }
 
 .thingy {
@@ -25,6 +27,7 @@ a:hover {
   padding: 20px;
   width: 250px;
   height: auto;
+  background-color: #fff;
 }
 
 .thingy img {

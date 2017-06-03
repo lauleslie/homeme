@@ -1,8 +1,18 @@
 body {
   font-family: 'Open Sans', sans-serif !important;
   font-size: 12px;
-  background: url('https://i.ytimg.com/vi/v1SabYdIlZI/maxresdefault.jpg');
+  background: url('https://static.pexels.com/photos/295168/pexels-photo-295168.jpeg');
   background-size: cover;
+}
+
+h2 {
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 20px !important;
+}
+
+p {
+  text-align: center;
 }
 
 .accountContainer {
@@ -11,57 +21,20 @@ body {
   margin-left: auto;
   margin-right: auto;
   padding:15px;
-  margin-top: 15px;
-  margin-bottom: 10px;
-  border-top: 10px solid #88A087;
+  margin-top: 25px;
+  margin-bottom: 25px;
   overflow-x: hidden;
 }
 
-#post_post_content__label{
-  transform: translate(25%);
+.btn {
+  background-color: #88A087 !important;
+  border-radius: 10px;
 }
 
-#post_min_budget__label{
-  transform: translate(25%);
+.btn:hover {
+  box-shadow: none !important;
 }
 
-#post_max_budget__label{
-  transform: translate(25%);
-}
-
-#post_number_of_people__label{
-  transform: translate(25%);
-}
-
-#post_description__label{
-  transform: translate(25%);
-}
-#post_post_content{
-  width:70%;
-  height:25%;
-  transform: translate(15%);
-}
-
-#post_min_budget{
-  width:70%;
-  transform: translate(15%);
-}
-
-#post_max_budget{
-  width:70%;
-  transform: translate(15%);
-}
-
-#post_number_of_people{
-  width:70%;
-  transform: translate(15%);
-}
-
-#post_description{
-  width:70%;
-  transform: translate(15%);
-}
-
-#submit_record__row{
-  transform: translate(34%);
+form {
+  width: auto;
 }
