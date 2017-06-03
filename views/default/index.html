@@ -1,55 +1,41 @@
 {{extend 'layout.html'}}
 <script src="https://use.fontawesome.com/2a89db6bb1.js"></script>
 <link rel="stylesheet" href="{{=URL('static','css/index.css')}}"/>
+
+<div class="navbar">
+    <div class="logo">
+        <img src="http://i.imgur.com/yRFFTxA.jpg" height="50px"/>
+    </div>
+
+    <nav>
+        <a href="{{=URL('default', 'aboutus')}}">About Us</a>
+        <a href="{{=URL('default', 'user', args=['login'])}}"> Get Started</a>
+        <a href="{{=URL('default', 'profile')}}">Profile</a>
+        <a href="{{=URL('default', 'user', args=['logout'])}}">Logout</a>
+    </nav>
+</div>
+
 <div class="post_listing center">
 {{if auth.user_id:}}
+    <div class="profilesearch">
+      <center>
+          <h4>Search for a user:</h4>
+          {{=form}}
+      </center>
+        {{if people:}}
+        <h4 align="left">Results:</h4>
+        <table>
+           {{for user in people:}}
+           <tr>
+             <td>{{=A(name_of(user), _href=URL('profile',args=user.id))}}
+             </td>
+           </tr>
 
-<!-- below is the old code for posting and viewing the profile
-    <div class="post_list_header text-right">
-        <a href="{{=URL('default', 'edit')}}" class="btn btn-warning">
-            <i class="fa fa-plus"></i> New Post as Tenant
-        </a>
+           {{pass}}
+        </table>
+        {{pass}}
+        <a href="{{=URL('default', 'search')}}" type="button" class="btn btn-primary"> Advance searching</a>
     </div>
-
-    <div class="post_landlord_header text-right">
-        <a href="{{=URL('default', 'edit_Landlord')}}" class="btn btn-warning">
-            <i class="fa fa-plus"></i> New Post as Landlord
-        </a>
-    </div>
-
-
-    <div class="go_to_profile text-right">
-        <a href="{{=URL('default', 'profile')}}" class="btn btn-warning">
-            <i> VIEW MY PROFILE </i>
-        </a>
-    </div>
-
-  -->
-
-    <a href="{{=URL('default', 'edit')}}" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Post as Tenant</a>
-    <a href="{{=URL('default', 'edit_Landlord')}}" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Post as Landlord</a>
-    <a href="{{=URL('default', 'profile')}}" type="button" class="btn btn-info"><i class="fa fa-user-circle" aria-hidden="true"></i> View my profile</a>
-
-
-<div class="profilesearch">
-  <center>
-      <h4>Search for a user:</h4>
-      {{=form}}
-  </center>
-    {{if people:}}
-    <h4 align="left">Results:</h4>
-    <table>
-       {{for user in people:}}
-       <tr>
-         <td>{{=A(name_of(user), _href=URL('profile',args=user.id))}}
-         </td>
-       </tr>
-
-       {{pass}}
-    </table>
-    {{pass}}
-    <a href="{{=URL('default', 'search')}}" type="button" class="btn btn-primary"> Advance searching</a>
-</div>
 
 {{else:}}
 
@@ -98,15 +84,20 @@
 
                     {{if auth.user is not None:}}
                         {{if p.user_email == auth.user.email:}}
-                            | <a href="{{=URL('default', 'edit', args=[p.id], vars=dict(edit='true'))}}">
-                                Click to edit
+                            <a href="{{=URL('default', 'edit', args=[p.id], vars=dict(edit='true'))}}">
+                            Click to edit
                             </a>
+                        {{else:}}
+                            <!--
+                            <button onclick="ajax('{{=URL('app_link',args=('request', p.auth_user.id))}}', [], null); $(this).parent().html('Info Sent')">Send Info</button>
+                            -->
                         {{pass}}
+                            
                     {{pass}}
                 </div>
             </div>
             {{pass}}
-            {{pass}}
+        {{pass}}
         </div>
     </div>
 
@@ -176,9 +167,11 @@
 
                     {{if auth.user is not None:}}
                         {{if p.user_email == auth.user.email:}}
-                            | <a href="{{=URL('default', 'edit_Landlord', args=[p.id], vars=dict(edit='true'))}}">
+                            <a href="{{=URL('default', 'edit_Landlord', args=[p.id], vars=dict(edit='true'))}}">
                                 Click to edit
                             </a>
+                        {{else:}}
+                            
                         {{pass}}
                     {{pass}}
                 </div>
@@ -224,9 +217,11 @@
 
                         {{if auth.user is not None:}}
                             {{if p.user_email == auth.user.email:}}
-                                | <a href="{{=URL('default', 'edit', args=[p.id], vars=dict(edit='true'))}}">
+                                <a href="{{=URL('default', 'edit', args=[p.id], vars=dict(edit='true'))}}">
                                     Click to edit
                                 </a>
+                            {{else:}}
+                                
                             {{pass}}
                         {{pass}}
                     </div>
@@ -278,15 +273,17 @@
                     </p>
 
                     {{if p.furnish:}}
-                    <p><strong>Furnished: </strong>
-                    {{if p.furnish == False:}} No
-                    {{else:}} Yes
-                    {{pass}}
+                        <p><strong>Furnished: </strong>
+                        {{if p.furnish == False:}} 
+                            No
+                        {{else:}} 
+                            Yes
+                        {{pass}}
                     {{pass}}
                     </p>
 
                     {{if p.more_info:}}
-                    <p><strong>More info: </strong> {{=p.more_info}} </p>
+                        <p><strong>More info: </strong> {{=p.more_info}} </p>
                     {{pass}}
 
                     <div class="post_details text-left">
@@ -296,7 +293,6 @@
                         {{if p.createdon == p.updatedon:}}
                             <em>{{=p.createdon.hour}}:{{=p.createdon.minute}}</em>
                             <em>on {{=p.createdon.month}}/{{=p.createdon.day}}/{{=p.createdon.year}}</em>
-
                         {{else:}}
                             <em>{{=p.updatedon.hour}}:{{=p.updatedon.minute}}</em> 
                             <em>on {{=p.updatedon.month}}/{{=p.updatedon.day}}/{{=p.updatedon.year}}</em>
@@ -304,9 +300,11 @@
 
                         {{if auth.user is not None:}}
                             {{if p.user_email == auth.user.email:}}
-                                | <a href="{{=URL('default', 'edit_Landlord', args=[p.id], vars=dict(edit='true'))}}">
+                                <a href="{{=URL('default', 'edit_Landlord', args=[p.id], vars=dict(edit='true'))}}">
                                     Click to edit
                                 </a>
+                            {{else:}}
+                                
                             {{pass}}
                         {{pass}}
                     </div>

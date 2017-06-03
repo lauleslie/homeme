@@ -28,7 +28,7 @@
 
 <h2>Housemates</h2>
 
-  <a href="{{=URL('default', 'edit_mates')}}" type="button" class="btn btn-primary"></i> Edit my ousemate</a>
+  <a href="{{=URL('default', 'edit_mates')}}" type="button" class="btn btn-primary"></i>Edit my Housemate</a>
 
 <table>
   {{for friend in requests:}}
@@ -36,6 +36,15 @@
     <td>{{=A(name_of(friend.auth_user),_href=URL('wall',args=friend.auth_user.id))}}</td>
   </tr>
   {{pass}}
+</table>
+
+<h2>Incoming Contacts</h2>
+<table>
+    {{for contact in apps:}}
+    <tr>
+        <td>{{=A(name_of(contact.auth_user),_href=URL('wall',args=contact.auth_user.id))}}</td>
+    </tr>
+    {{pass}}
 </table>
 
 

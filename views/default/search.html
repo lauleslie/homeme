@@ -3,13 +3,13 @@
 {{=form}}
 
 {{if people:}}
-<h3>Search for People</h3>
-<table>
-   {{for user in people:}}
-   <td>{{=A(name_of(user), _href=URL('profile',args=user.id))}}    </td>
-   <td><button onclick="ajax('{{=URL('housemate_link',args=('request',user.id))}}',[],null);$(this).parent().html('request sent')">request housemate</button></td>
-   {{pass}}
-</table>
+	<h3>Search for People</h3>
+	<table>
+	   {{for user in people:}}
+	   		<td>{{=A(name_of(user), _href=URL('profile',args=user.id))}}</td>
+	   		<td><button onclick="ajax('{{=URL('housemate_link',args=('request',user.id))}}',[],null);$(this).parent().html('request sent')">request housemate</button></td>
+	   {{pass}}
+	</table>
 {{pass}}
 
 
@@ -17,8 +17,9 @@
 <h3>Find Houses For Rent Near You</h3>
 
 {{include 'default/maps.html'}}
-{{for row in posts:}}{{if row.latitude and row.longitude:}}
-<p>row.latitude, row.longtitude: {{=row.latitude}},{{=row.longitude}}</p>
-{{pass}}{{pass}}
+	{{for row in posts:}}{{if row.latitude and row.longitude:}}
+		<p>row.latitude, row.longtitude: {{=row.latitude}},{{=row.longitude}}</p>
+	{{pass}}
+{{pass}}
 
 {{=posts}}

@@ -71,6 +71,8 @@ def profile():
     friends = db(User.id==Link.src)(Link.target==me).select(orderby=alphabetical)
     requests = db(User.id==Link.target)(Link.src==me).select(orderby=alphabetical)
 
+    apps = db(User.id==ApTab.src)(ApTab.target==me).select(orderby=alphabetical)
+
     posts = db().select(
         orderby=~db.post.updated_on
     )
@@ -361,6 +363,12 @@ def housemate_link():
         # delete a previous friendship request
         db(Link.src==me)(Link.target==a1).delete()
 
+@auth.requires_login()
+def app_link():
+    if request.env.request_method!='POST': raise HTTP(400)
+    if a0=='request' and not ApTab(src=me,target=ai):
+        # insert a new friendship request
+        ApTab.insert(src=me,target=a1)
 
 def user():
     """
