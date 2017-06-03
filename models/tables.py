@@ -81,10 +81,7 @@ db.post.updated_on.readable = db.post.updated_on.writable = False
 db.post_landlord.createdon.readable = db.post_landlord.createdon.writable = False
 db.post_landlord.updatedon.readable = db.post_landlord.updatedon.writable = False
 
-
-db.post.min_budget.requires = IS_FLOAT_IN_RANGE(0,1000000000000)
-db.post.max_budget.requires = IS_FLOAT_IN_RANGE(0,1000000000000)
-db.post.number_of_people.requires = IS_INT_IN_RANGE(0,30)
+db.post.number_of_people.requires = IS_INT_IN_RANGE(0,10)
 db.post.description.requires = IS_NOT_EMPTY()
 #db.post.budget.readable = db.post.budget.writable = False
 #db.post.number_of_people.readable = db.post.number_of_people.writable = False
