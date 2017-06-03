@@ -10,6 +10,16 @@ if request.global_settings.web2py_version < "2.14.1":
 # be redirected to HTTPS, uncomment the line below:
 # request.requires_https()
 
+GOOGLEMAP_KEY="ABQIAAAAT5em2PdsvF3z5onQpCqv0RRbmBRVqcetsYYPAZkdVkJ1U_-f7hQyRsL4C5GpXpg29_Qza9VuE2zX2w"
+
+try:
+    from gluon.contrib.gql import *  # if running on Google App Engine
+except:
+    db = DAL('sqlite://storage.db')  # if not, use SQLite or other DB
+else:
+    db = GQLDB()  # connect to Google BigTable
+    session.connect(request, response, db=db)  # and store sessions there
+
 # app configuration made easy. Look inside private/appconfig.ini
 from gluon.contrib.appconfig import AppConfig
 
@@ -71,9 +81,9 @@ crud, service, plugins = Crud(db), Service(), PluginManager()
 import datetime
 
 auth.settings.extra_fields['auth_user'] = [
-    Field('your_country'),
-    Field('your_state'),
-    Field('your_county'),
+    Field('your_country', label= 'country'),
+    Field('your_state', label = 'state'),
+    Field('your_county', label = 'zip code'),
     Field('landlord', 'boolean'),
     Field('tenant', 'boolean' ), 
     Field('about_yourself', 'text'),
