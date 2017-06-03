@@ -20,7 +20,10 @@ db.define_table('post',
                 Field('min_budget'),
                 Field('max_budget'),
                 Field('number_of_people'),
-                Field('description')
+                Field('description'),
+                Field('my_city'),
+                Field('latitude','double',writable=False),
+                Field('longitude','double',writable=False)
                 )
 
                 #landlord stuff
@@ -38,20 +41,35 @@ db.define_table('post_landlord',
                  Field('furnish', 'boolean'),
                  Field('pets', 'boolean'),
                  Field('more_info', 'text'),
-                 Field('picture', 'upload')
+                 Field('picture', 'upload'),
+                 Field('latitude','double',writable=False),
+                 Field('longitude','double',writable=False)
                 )
 
 
 
 
+# a table to link two people
+db.define_table('link',
+                Field('src','reference auth_user'),
+                Field('target','reference auth_user'),
+                Field('accepted','boolean',default=False))
+
+# a table designed to send an app to a person
+db.define_table('app',
+                Field('src','reference auth_user'),
+                Field('target','reference auth_user'))
+
 # and define some global variables that will make code more compact
-User, Post = db.auth_user,db.post
-me, a0 = auth.user_id, request.args(0)
+User, Link, ApTab, Post = db.auth_user, db.link, db.app, db.post
+me, a0, a1 = auth.user_id, request.args(0), request.args(1)
+myfriends = db(Link.src==me)(Link.accepted==True)
+
+myapps = db(ApTab.target==me)
+
 alphabetical = User.first_name|User.last_name
+
 def name_of(user): return '%(first_name)s %(last_name)s' % user
-
-
-
 
 
 # I don't want to display the user email by default in all forms.
