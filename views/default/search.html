@@ -1,15 +1,5 @@
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{{=URL('static','css/search.css')}}"/>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://use.fontawesome.com/2a89db6bb1.js"></script>
-
-</head>
-<body>
+{{extend 'layout.html'}}
+<link rel="stylesheet" href="{{=URL('static','css/search.css')}}"/>
 
 <div class="container">
 <div class="searchbody">
@@ -18,11 +8,11 @@
 {{=form}}
 
 {{if people:}}
-<h3>Results:</h3>
+<h3>Results</h3>
 <table>
    {{for user in people:}}
-   <td>{{=A(name_of(user), _href=URL('profile',args=user.id))}} </td>
-   <td><button onclick="ajax('{{=URL('housemate_link',args=('request',user.id))}}',[],null);$(this).parent().html('request sent')">request housemate</button></td>
+   <td>{{=A(name_of(user), _href=URL('profile',args=user.id))}}    </td>
+   <td><button onclick="ajax('{{=URL('housemate_link',args=('request',user.id))}}',[],null);$(this).parent().html('request sent')" class="requestss">request housemate</button></td>
    {{pass}}
 </table>
 {{pass}}
@@ -36,9 +26,5 @@
 <p>row.latitude, row.longtitude: {{=row.latitude}},{{=row.longitude}}</p>
 {{pass}}{{pass}}
 
-{{=posts}}
 </div>
 </div>
-
-</body>
-</html>

@@ -89,6 +89,7 @@ def profile():
     return locals()
 
 
+
 def edit_mates():
 
 
@@ -96,14 +97,6 @@ def edit_mates():
 
     friends = db(User.id==Link.src)(Link.target==me).select(orderby=alphabetical)
     requests = db(User.id==Link.target)(Link.src==me).select(orderby=alphabetical)
-
-    posts = db().select(
-        orderby=~db.post.updated_on
-    )
-
-    posts2 = db().select(
-        orderby=~db.post_landlord.updatedon
-    )
 
     return locals()
 
@@ -140,9 +133,6 @@ def search():
         people = db(query).select(orderby=alphabetical)
     else:
         people = []
-
-
-
     return locals()
 
 @auth.requires_login()

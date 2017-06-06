@@ -46,3 +46,7 @@ body {
   padding: 10px;
   margin-top: 10px;
 }
+
+label {
+    margin-right: 10px !important;
+}
