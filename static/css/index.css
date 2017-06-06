@@ -63,7 +63,7 @@ a {
   text-decoration: none;
 }
 
-.navbar {
+.navbar-fixed-top {
 
     border: solid #cccccc;
     border-width: 0px;
