@@ -64,9 +64,9 @@ a {
 }
 
 .navbar {
-    background-color: #eeeeee;
+
     border: solid #cccccc;
-    border-width: 1px;
+    border-width: 0px;
 }
 
 .navbar .logo {
@@ -87,7 +87,7 @@ a {
 .navbar nav a {
     display: inline-block;
     margin-left: 20px;
-    color: dimgray;
+    color: black;
     font-size: 14px;
     text-transform: uppercase;
 }
@@ -101,7 +101,7 @@ a {
     float: left;
     margin: 15px 0 0 10px;
     display: inline-block;
-    color: white;
+    color: black;
     font-size: 20px;
     padding: 0.2em 0.5em;
     letter-spacing: 0.15em;
@@ -115,13 +115,13 @@ a {
 .navbar nav a {
     display: inline-block;
     margin-left: 20px;
-    color: white;
-    font-size: 14px;
+    color: black;
+    font-size: 15px;
     text-transform: uppercase;
 }
 
 .navbar nav a:hover {
-    color: #fff;
+    color: black;
     text-decoration: none;
 }
 
