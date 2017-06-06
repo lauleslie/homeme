@@ -1,0 +1,92 @@
+<html lang ="en">
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<link rel="stylesheet" href="{{=URL('static','css/grid.css')}}"/>
+<script src="https://use.fontawesome.com/2a89db6bb1.js"></script>
+</head>
+<body>
+
+<div class="jumbotron main">
+  <div class="container">
+  <h2><a href="{{=URL('default', 'index')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> HOME</a></h2>
+
+  {{for p in posts2:}}
+    <div class="thingy">
+        <center>
+        {{if p.picture:}} <p><img src="{{=URL('default', 'download', args=p.picture)}}"/></p>
+        {{else:}} <p><img src="https://static.pexels.com/photos/317356/pexels-photo-317356.jpeg"/></p>
+        {{pass}}
+       </center>
+       {{if p.my_address:}}
+        <p><strong>Location: </strong>{{=p.my_address}} {{=p.my_city}}, {{=p.my_state}}</p>
+       {{else: }}
+       {{pass}}
+
+       {{if p.sq_ft:}}
+         <p><strong>Square feet: </strong> {{=p.sq_ft}}</p>
+       {{else:}}
+       {{pass}}
+
+       {{if p.num_bed and p.num_bath:}}
+       <p><strong>Bed/bath: </strong> {{=p.num_bed}} beds and {{=p.num_bath}} baths</p>
+       {{pass}}
+
+       {{if p.washdry:}}<p><strong>Washer: </strong>
+       {{if p.washdry == False:}} No
+       {{else:}} Yes
+       {{pass}}
+       {{pass}}
+       </p>
+
+       {{if p.pets:}}
+       <p><strong>Pets: </strong>
+       {{if p.pets == False:}} No
+       {{else:}} Yes
+       {{pass}}
+       {{pass}}
+       </p>
+
+       {{if p.furnish:}}
+       <p><strong>Furnished: </strong>
+       {{if p.furnish == False:}} No
+       {{else:}} Yes
+       {{pass}}
+       {{pass}}
+       </p>
+
+       {{if p.more_info:}}
+       <p><strong>More info: </strong> {{=p.more_info}} </p>
+       {{pass}}
+      <div class="postedby">
+        Posted by: {{=firstlast(p.user_email)}} <br>
+
+        <i class="fa fa-clock-o" aria-hidden="true"></i> <em>{{=p.createdon.hour}}:{{=p.createdon.minute}}</em>
+
+        {{if p.createdon == p.updatedon:}}
+        <em>on {{=p.createdon.month}}/{{=p.createdon.day}}/{{=p.createdon.year}}</em>
+
+        {{else:}}
+        <br> and edited
+        {{=p.updatedon.hour}}:{{=p.updatedon.minute}} on
+        {{=p.updatedon.month}}/{{=p.updatedon.day}}/{{=p.updatedon.year}}
+        {{pass}}
+
+        {{if auth.user is not None:}}
+            {{if p.user_email == auth.user.email:}}
+              | <a href="{{=URL('default', 'edit_Landlord', args=[p.id], vars=dict(edit='true'))}}">
+                    Click to edit </a>
+            {{pass}}
+        {{pass}}
+      <!-- end postedby -->
+            </div>
+          </div>
+        {{pass}}
+      </div>
+    <!-- end thingy -->
+    </div>
+  <!-- end container -->
+  </div>
+<!-- end jumbotron main -->
+</div>
+</body>
+</html>

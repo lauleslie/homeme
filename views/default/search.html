@@ -1,0 +1,30 @@
+{{extend 'layout.html'}}
+<link rel="stylesheet" href="{{=URL('static','css/search.css')}}"/>
+
+<div class="container">
+<div class="searchbody">
+<h2><a href="{{=URL('default', 'index')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> HOME</a></h2>
+<h3>Advanced Searching</h3>
+{{=form}}
+
+{{if people:}}
+<h3>Results</h3>
+<table>
+   {{for user in people:}}
+   <td>{{=A(name_of(user), _href=URL('profile',args=user.id))}}    </td>
+   <td><button onclick="ajax('{{=URL('housemate_link',args=('request',user.id))}}',[],null);$(this).parent().html('request sent')" class="requestss">request housemate</button></td>
+   {{pass}}
+</table>
+{{pass}}
+
+<div class="lilborder"></div>
+
+<h3>Find Houses For Rent Near You</h3>
+
+{{include 'default/maps.html'}}
+{{for row in posts:}}{{if row.latitude and row.longitude:}}
+<p>row.latitude, row.longtitude: {{=row.latitude}},{{=row.longitude}}</p>
+{{pass}}{{pass}}
+
+</div>
+</div>
