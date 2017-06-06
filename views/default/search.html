@@ -18,10 +18,10 @@
 {{=form}}
 
 {{if people:}}
-<h3>Results:</h3>
+<h3>Search for People</h3>
 <table>
    {{for user in people:}}
-   <td>{{=A(name_of(user), _href=URL('profile',args=user.id))}} </td>
+   <td>{{=A(name_of(user), _href=URL('profile',args=user.id))}}    </td>
    <td><button onclick="ajax('{{=URL('housemate_link',args=('request',user.id))}}',[],null);$(this).parent().html('request sent')">request housemate</button></td>
    {{pass}}
 </table>

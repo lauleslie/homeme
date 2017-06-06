@@ -49,7 +49,7 @@ def _():
     # useful links to internal and external resources
     # ------------------------------------------------------------------------------------------------------------------
     response.menu += [
-        (T('My Sites'), False, URL('admin', 'default', 'site')),
+        (T('My Sitezs'), False, URL('admin', 'default', 'site')),
         (T('This App'), False, '#', [
             (T('Design'), False, URL('admin', 'default', 'design/%s' % app)),
             LI(_class="divider"),

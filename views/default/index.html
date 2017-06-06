@@ -59,7 +59,7 @@
 
 
 {{pass}}
-	
+
 	<div class="tab">
     <button class="tablinks" onclick="openTab(event, 'tenant')">Tenant Listings</button>
     <button class="tablinks" onclick="openTab(event, 'landlord')">Landlord Listings</button>
@@ -112,81 +112,79 @@
 	</div>
 
 	<div id="landlord" class="tabcontent">
-	    <div class="post_list1">
-	    	{{for p in posts2:}}
 
-	        <div class="post1 text-left">
-	            <!-- Here goes the code to display an individual post. The code below is just a placeholder. -->
-	            {{if p.picture:}} <p><img src="{{=URL('default', 'download', args=p.picture)}}" width="30%"/></p>
-	            {{else: }} <p><h3>No picture uploaded.</h3></p>
-	            {{pass}}
+        {{for p in posts2:}}
+          <div class="thingy">
+              <center>
+              {{if p.picture:}} <p><img src="{{=URL('default', 'download', args=p.picture)}}" width="100px"/></p>
+              {{else:}} <p><img src="https://static.pexels.com/photos/317356/pexels-photo-317356.jpeg" width="100px"/></p>
+              {{pass}}
+             </center>
+             {{if p.my_address:}}
+              <p><strong>Location: </strong>{{=p.my_address}} {{=p.my_city}}, {{=p.my_state}}</p>
+             {{else: }}
+             {{pass}}
 
-	            {{if p.my_address:}}
-	              <p><strong>Location: </strong>{{=p.my_address}} {{=p.my_city}}, {{=p.my_state}}</p>
-	            {{else: }}
-	            {{pass}}
+             {{if p.sq_ft:}}
+               <p><strong>Square feet: </strong> {{=p.sq_ft}}</p>
+             {{else:}}
+             {{pass}}
 
-	            {{if p.sq_ft:}}
-	              <p><strong>Square feet: </strong> {{=p.sq_ft}}</p>
-	            {{else:}}
-	            {{pass}}
+             {{if p.num_bed and p.num_bath:}}
+             <p><strong>Bed/bath: </strong> {{=p.num_bed}} beds and {{=p.num_bath}} baths</p>
+             {{pass}}
 
-	            {{if p.num_bed and p.num_bath:}}
-	            <p><strong>Bed/bath: </strong> {{=p.num_bed}} beds and {{=p.num_bath}} baths</p>
-	            {{pass}}
+             {{if p.washdry:}}<p><strong>Washer: </strong>
+             {{if p.washdry == False:}} No
+             {{else:}} Yes
+             {{pass}}
+             {{pass}}
+             </p>
 
-	            {{if p.washdry:}}<p><strong>Washer: </strong>
-	            {{if p.washdry == False:}} No
-	            {{else:}} Yes
-	            {{pass}}
-	            {{pass}}
-	            </p>
+             {{if p.pets:}}
+             <p><strong>Pets: </strong>
+             {{if p.pets == False:}} No
+             {{else:}} Yes
+             {{pass}}
+             {{pass}}
+             </p>
 
-	            {{if p.pets:}}
-	            <p><strong>Pets: </strong>
-	            {{if p.pets == False:}} No
-	            {{else:}} Yes
-	            {{pass}}
-	            {{pass}}
-	            </p>
+             {{if p.furnish:}}
+             <p><strong>Furnished: </strong>
+             {{if p.furnish == False:}} No
+             {{else:}} Yes
+             {{pass}}
+             {{pass}}
+             </p>
 
-	            {{if p.furnish:}}
-	            <p><strong>Furnished: </strong>
-	            {{if p.furnish == False:}} No
-	            {{else:}} Yes
-	            {{pass}}
-	            {{pass}}
-	            </p>
+             {{if p.more_info:}}
+             <p><strong>More info: </strong> {{=p.more_info}} </p>
+             {{pass}}
+            <div class="postedby">
+              Posted by: {{=firstlast(p.user_email)}} <br>
 
-	            {{if p.more_info:}}
-	            <p><strong>More info: </strong> {{=p.more_info}} </p>
-	            {{pass}}
+              <i class="fa fa-clock-o" aria-hidden="true"></i> <em>{{=p.createdon.hour}}:{{=p.createdon.minute}}</em>
 
-	            <div class="post_details text-left">
+              {{if p.createdon == p.updatedon:}}
+              <em>on {{=p.createdon.month}}/{{=p.createdon.day}}/{{=p.createdon.year}}</em>
 
-	                Posted by: <a href="{{=URL('default', 'profile', args=p.id)}}">{{=firstlast(p.user_email)}}</a>
-	                at <em>{{=p.createdon.hour}}:{{=p.createdon.minute}}</em>
+              {{else:}}
+              <br> and edited
+              {{=p.updatedon.hour}}:{{=p.updatedon.minute}} on
+              {{=p.updatedon.month}}/{{=p.updatedon.day}}/{{=p.updatedon.year}}
+              {{pass}}
 
-	                {{if p.createdon == p.updatedon:}}
-	                    <em>on {{=p.createdon.month}}/{{=p.createdon.day}}/{{=p.createdon.year}}</em>
-
-	                {{else:}}
-	                    <br> and edited
-	                    {{=p.updatedon.hour}}:{{=p.updatedon.minute}} on
-	                    {{=p.updatedon.month}}/{{=p.updatedon.day}}/{{=p.updatedon.year}}
-	                {{pass}}
-
-	                {{if auth.user is not None:}}
-	                    {{if p.user_email == auth.user.email:}}
-	                        | <a href="{{=URL('default', 'edit', args=[p.id], vars=dict(edit='true'))}}">
-	                            Click to edit
-	                        </a>
-	                    {{pass}}
-	                {{pass}}
-	            </div>
-	        </div>
-	    {{pass}}
-	    </div>
+              {{if auth.user is not None:}}
+                  {{if p.user_email == auth.user.email:}}
+                    | <a href="{{=URL('default', 'edit_Landlord', args=[p.id], vars=dict(edit='true'))}}">
+                          Click to edit </a>
+                  {{pass}}
+              {{pass}}
+            <!-- end postedby -->
+                  </div>
+                </div>
+              {{pass}}
+            </div>
 	</div>
 
 	<div id="all" class="tabcontent">
