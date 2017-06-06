@@ -160,7 +160,7 @@
           <table>
             {{for friend in requests:}}
             <tr>
-              <td>{{=A(name_of(friend.auth_user),_href=URL('wall',args=friend.auth_user.id))}}</td>
+              <td>{{=A(name_of(friend.auth_user),_href=URL('profile',args=friend.auth_user.id))}}</td>
             </tr>
             {{pass}}
           </table>
