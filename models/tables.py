@@ -13,6 +13,7 @@ import datetime
 
 # Create table to be called by SQLFORM
 db.define_table('post',
+                Field('user_id', default=auth.user_id if auth.user_id else None),
                 Field('user_email', default=auth.user.email if auth.user_id else None),
                 Field('post_content', 'text'),
                 Field('created_on', 'datetime', default=datetime.datetime.utcnow()),
@@ -22,29 +23,30 @@ db.define_table('post',
                 Field('number_of_people'),
                 Field('description'),
                 Field('my_city'),
-                Field('latitude','double',writable=False, readable= False),
-                Field('longitude','double',writable=False, readable=False)
+                Field('latitude','double',writable=False,readable=False),
+                Field('longitude','double',writable=False,readable=False)
                 )
 
                 #landlord stuff
 db.define_table('post_landlord',
-                 Field('user_email', default=auth.user.email if auth.user_id else None),
-                 Field('createdon', 'datetime', default=datetime.datetime.utcnow()),
-                 Field('updatedon', 'datetime', update=datetime.datetime.utcnow()),
-                 Field('rent'),
-                 Field('my_address'),
-                 Field('my_city'),
-                 Field('my_state'),
-                 Field('sq_ft'),
-                 Field('num_bed'),
-                 Field('num_bath'),
-                 Field('washdry', 'boolean'),
-                 Field('furnish', 'boolean'),
-                 Field('pets', 'boolean'),
-                 Field('more_info', 'text'),
-                 Field('picture', 'upload'),
-                 Field('latitude','double',writable=False, readable= False),
-                 Field('longitude','double',writable=False, readable = False)
+                Field('user_id', default=auth.user_id if auth.user_id else None),
+                Field('user_email', default=auth.user.email if auth.user_id else None),
+                Field('createdon', 'datetime', default=datetime.datetime.utcnow()),
+                Field('updatedon', 'datetime', update=datetime.datetime.utcnow()),
+                Field('rent'),
+                Field('my_address'),
+                Field('my_city'),
+                Field('my_state'),
+                Field('sq_ft'),
+                Field('num_bed'),
+                Field('num_bath'),
+                Field('washdry', 'boolean'),
+                Field('furnish', 'boolean'),
+                Field('pets', 'boolean'),
+                Field('more_info', 'text'),
+                Field('picture', 'upload'),
+                Field('latitude','double',writable=False,readable=False),
+                Field('longitude','double',writable=False,readable=False)
                 )
 
 
@@ -73,18 +75,24 @@ def name_of(user): return '%(first_name)s %(last_name)s' % user
 
 
 # I don't want to display the user email by default in all forms.
+db.post.user_id.readable = db.post.user_id.writable = False
 db.post.user_email.readable = db.post.user_email.writable = False
 db.post.id.readable = db.post.id.writable = False
 db.post.post_content.requires = IS_NOT_EMPTY()
 db.post.created_on.readable = db.post.created_on.writable = False
 db.post.updated_on.readable = db.post.updated_on.writable = False
-db.post_landlord.createdon.readable = db.post_landlord.createdon.writable = False
-db.post_landlord.updatedon.readable = db.post_landlord.updatedon.writable = False
-
 db.post.number_of_people.requires = IS_INT_IN_RANGE(0,10)
 db.post.description.requires = IS_NOT_EMPTY()
+
+db.post_landlord.user_id.readable = db.post_landlord.user_id.writable = False
+db.post_landlord.user_email.readable = db.post_landlord.user_email.writable = False
+db.post_landlord.createdon.readable = db.post_landlord.createdon.writable = False
+db.post_landlord.updatedon.readable = db.post_landlord.updatedon.writable = False
 #db.post.budget.readable = db.post.budget.writable = False
 #db.post.number_of_people.readable = db.post.number_of_people.writable = False
 #db.post.description.readable = db.post.description.writable = False
 # after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)
+
+
+

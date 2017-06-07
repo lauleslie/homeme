@@ -45,10 +45,6 @@ def index():
     # what you get from a db(...).select(...).
     # posts = ['banana', 'pear', 'eggplant']
 
-    contacts = db().select(
-        orderby=~db.contact.post_id
-    )
-
     posts = db().select(
         orderby=~db.post.updated_on,
         limitby=(0, 5)
@@ -58,6 +54,12 @@ def index():
         orderby=~db.post_landlord.updatedon,
         limitby=(0, 5)
     )
+
+    contacts = db().select(
+        orderby=~db.contact.post_id
+    )
+
+    firstlast = get_user_name_from_email
 
     firstlast = get_user_name_from_email
 
@@ -368,6 +370,7 @@ def housemate_link():
     elif a0=='remove':
 
         db(Link.src==me)(Link.target==a1).delete()
+
 
 @auth.requires_login()
 def contact():
