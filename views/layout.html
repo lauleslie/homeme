@@ -107,9 +107,11 @@
             {{='auth' in globals() and auth.navbar('Welcome',mode='dropdown') or ''}}
           </ul>
           {{if response.menu:}}
+          {{if auth.user_id:}}
           <div class="pull-right">
             {{=MENU(response.menu, _class='nav navbar-nav',li_class='dropdown',ul_class='dropdown-menu')}}
           </div>
+          {{pass}}
           {{pass}}
         </div>
       </div>

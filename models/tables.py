@@ -22,8 +22,8 @@ db.define_table('post',
                 Field('number_of_people'),
                 Field('description'),
                 Field('my_city'),
-                Field('latitude','double',writable=False),
-                Field('longitude','double',writable=False)
+                Field('latitude','double',writable=False, readable= False),
+                Field('longitude','double',writable=False, readable=False)
                 )
 
                 #landlord stuff
@@ -43,8 +43,8 @@ db.define_table('post_landlord',
                  Field('pets', 'boolean'),
                  Field('more_info', 'text'),
                  Field('picture', 'upload'),
-                 Field('latitude','double',writable=False),
-                 Field('longitude','double',writable=False)
+                 Field('latitude','double',writable=False, readable= False),
+                 Field('longitude','double',writable=False, readable = False)
                 )
 
 
