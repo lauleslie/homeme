@@ -58,12 +58,14 @@
         border: none;
         padding: 3px;
     }
+
     .navbar img {
       margin-top: 3px;
     }
 
     .navbar a {
       color: #333 !important;
+      display: inline-block;
     }
 
     .navbar a:hover {
@@ -74,6 +76,10 @@
     .navbar-default .navbar-nav>.open>a:hover, .navbar-default
     .navbar-nav>.open>a:focus {
       background-color: #88A087;
+    }
+
+    .pull-right {
+      float: right !important;
     }
 
   </style>
@@ -92,8 +98,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          {{=response.logo or ''}}
-          <a href="{{=URL('default', 'index')}}">
+          <a href="{{=URL('default', 'index')}}" class="lolo">
             <img src="http://i.imgur.com/yRFFTxA.jpg" height="50px"/>
           </a>
         </div>
@@ -102,7 +107,9 @@
             {{='auth' in globals() and auth.navbar('Welcome',mode='dropdown') or ''}}
           </ul>
           {{if response.menu:}}
-          {{=MENU(response.menu, _class='nav navbar-nav',li_class='dropdown',ul_class='dropdown-menu')}}
+          <div class="pull-right">
+            {{=MENU(response.menu, _class='nav navbar-nav',li_class='dropdown',ul_class='dropdown-menu')}}
+          </div>
           {{pass}}
         </div>
       </div>
