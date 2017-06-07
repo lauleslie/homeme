@@ -19,6 +19,7 @@ form {
   background-color: #eee;
   padding: 20px;
   margin-top: 10px;
+  margin-bottom: 100px;
 }
 
 .btn {
@@ -50,70 +51,11 @@ table tr td:first-child::before {
 }
 
 .post1 {
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #eee;
   padding: 30px;
   padding-bottom: 30px;
 }
 
-
-body {
-  font-family: 'Open Sans', sans-serif !important;
-}
-a {
-  text-decoration: none;
-}
-.navbar {
-    background-color: #eeeeee;
-    border: solid #cccccc;
-    border-width: 1px;
-}
-.navbar .logo {
-    float: left;
-    margin: 15px 0 0 0px;
-    display: inline-block;
-    color: dimgray;
-    font-size: 20px;
-    padding: 0.2em 0.5em;
-    letter-spacing: 0.15em;
-}
-.navbar nav {
-    float: right;
-    margin: 30px 30px 0 0;
-}
-.navbar nav a {
-    display: inline-block;
-    margin-left: 20px;
-    color: dimgray;
-    font-size: 14px;
-    text-transform: uppercase;
-}
-.navbar nav a:hover {
-    text-decoration: none;
-}
-.navbar .logo {
-    float: left;
-    margin: 15px 0 0 10px;
-    display: inline-block;
-    color: white;
-    font-size: 20px;
-    padding: 0.2em 0.5em;
-    letter-spacing: 0.15em;
-}
-.navbar nav {
-    float: right;
-    margin: 30px 30px 0 0;
-}
-.navbar nav a {
-    display: inline-block;
-    margin-left: 20px;
-    color: white;
-    font-size: 14px;
-    text-transform: uppercase;
-}
-.navbar nav a:hover {
-    color: #fff;
-    text-decoration: none;
-}
 .dropbtn {
     background-color: #4CAF50;
     color: white;
@@ -172,4 +114,40 @@ a {
   padding: 10px;
   font-size: 11px;
   margin-bottom: auto;
+}
+
+h4 {
+  font-size: 20px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+div.tab {
+    overflow: hidden;
+    align-content: center;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+/* Style the buttons inside the tab */
+div.tab button {
+    background-color: #ddd !important;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 10px;
+    border-radius: 0px !important;
+}
+
+/* Change background color of buttons on hover */
+div.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+div.tab button.active {
+    background-color: #88A087 !important;
 }

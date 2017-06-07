@@ -1,0 +1,72 @@
+body {
+  font-family: 'Open Sans', sans-serif !important;
+  background-image: url('https://static.pexels.com/photos/380768/pexels-photo-380768.jpeg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+
+.btn {
+  background-color: #88A087 !important;
+  border-radius: 10px;
+  border: 1px solid #88A087 !important;
+}
+
+.btn:hover {
+  box-shadow: none !important;
+}
+
+.btn {
+  background-color: transparent !important;
+  border: none !important;
+  color: #333 !important;
+  padding: 0px !important;
+  margin-left: 20px !important;
+
+}
+
+.profile {
+  margin-top: 30px;
+}
+
+.profilecard {
+  background-color:rgba(255,255,255,.9);
+  padding: 30px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.profilecard a {
+  color: #88A087 !important;
+}
+
+.profilecard a:hover {
+  text-decoration: none !important;
+  color: #96ab95 !important;
+}
+
+/* table row numbering */
+/* courtesy of http://stackoverflow.com/questions/35862715/create-html-table-with-increment-number-of-column */
+table {
+    counter-reset: rowNumber;
+}
+
+table tr {
+    counter-increment: rowNumber;
+}
+
+table tr td:first-child::before {
+    content: counter(rowNumber);
+    min-width: 1em;
+    margin-right: 0.5em;
+}
+
+td {
+  border-bottom: 1px solid #ccc;
+  padding: 5px;
+}

@@ -1,5 +1,9 @@
 {{extend 'layout.html'}}
-<h2>Links I have received</h2>
+<link rel="stylesheet" href="{{=URL('static','css/editm.css')}}"/>
+
+<div class="profilecard">
+  <a href="{{=URL('default', 'profile')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to my profile</a>
+  <h3>Links I have received</h3>
 <table>
   {{for friend in friends:}}
   <tr>
@@ -9,13 +13,18 @@
   </tr>
   {{pass}}
 </table>
-<h2>Links I have requested</h2>
+<h3>Links I have requested</h3>
+
 <table>
   {{for friend in requests:}}
   <tr>
     <td>{{=A(name_of(friend.auth_user),_href=URL('wall',args=friend.auth_user.id))}}</td>
-    <td>{{if friend.link.accepted:}}request was accepted{{else:}}pending request{{pass}}</td>
+    <td>{{if friend.link.accepted:}} request was accepted
+        {{else:}} pending request
+        {{pass}}
+    </td>
     <td><button onclick="ajax('{{=URL('housemate_link',args=('deny',friend.auth_user.id))}}',[],null); $(this).parent().html('removed')">remove this link</button></td>
   </tr>
   {{pass}}
 </table>
+</div>
