@@ -340,7 +340,7 @@ def edit_Landlord():
     # return dict(form=form, button_list=button_list, p=p, form_type=form_type, post_list=post_list)
     return dict(form=form)
 
-# using ajax to setup links
+
 @auth.requires_login()
 def housemate_link():
     if request.env.request_method!='POST': raise HTTP(400)
@@ -348,15 +348,15 @@ def housemate_link():
         # insert a new friendship request
         Link.insert(src=me,target=a1)
     elif a0=='accept':
-        # accept an existing friendship request
+
         db(Link.target==me)(Link.src==a1).update(accepted=True)
         if not db(Link.src==me)(Link.target==a1).count():
             Link.insert(src=me,target=a1)
     elif a0=='deny':
-        # deny an existing friendship request
+
         db(Link.target==me)(Link.src==a1).delete()
     elif a0=='remove':
-        # delete a previous friendship request
+
         db(Link.src==me)(Link.target==a1).delete()
 
 
