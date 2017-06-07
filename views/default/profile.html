@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>{{=user.first_name}} {{=user.last_name}}'s Profile</title>
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{=URL('static','css/profile.css')}}"/>
@@ -11,6 +11,7 @@
   <script src="https://use.fontawesome.com/2a89db6bb1.js"></script>
 </head>
 <body>
+{{if auth.user_id:}}
 
 <div class="container">
   <div class="profilecard">
@@ -169,6 +170,12 @@
     </div>
   </div>
 </div>
-
+{{else:}}
+<div class="profilecard">
+  <h3 align="center">Please log in <a href="{{=URL('default', 'user/login')}}">here</a>
+  or <a href="{{=URL('default', 'user/register')}}">sign up here.</a>
+  </h3>
+</div>
+{{pass}}
 </body>
 </html>
