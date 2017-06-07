@@ -24,7 +24,7 @@ form {
 
 .btn {
   background-color: #88A087 !important;
-  border-radius: 10px;
+  border-radius: 0px;
 }
 
 .btn:hover {

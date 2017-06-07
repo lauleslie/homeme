@@ -4,8 +4,11 @@
 <div class="post_listing center">
 {{if auth.user_id:}}
 
+<!--
     <a href="{{=URL('default', 'edit')}}" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Post as Tenant</a>
     <a href="{{=URL('default', 'edit_Landlord')}}" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Post as Landlord</a>
+
+-->
 
 <!-- <div class="profilesearch">
       <h4>Search for a user:</h4>
@@ -89,7 +92,7 @@
           <div class="thingy">
               <center>
               {{if p.picture:}} <p><img src="{{=URL('default', 'download', args=p.picture)}}" width="100px"/></p>
-              {{else:}} <p><img src="https://static.pexels.com/photos/317356/pexels-photo-317356.jpeg" width="100px"/></p>
+              {{else:}} <p><img src="http://usg.mtu.edu/usg/housing/wp-content/uploads/2014/03/no-image-280x200.png" width="100px"/></p>
               {{pass}}
              </center>
              {{if p.my_address:}}
@@ -162,7 +165,8 @@
   <div id="all" class="tabcontent">
       	<div class="profilelan" style="width:45%;padding:0 10pt 0 0;float:right;">
           	<div class="post_list1">
-              <h4>Tenant Posts</h4>
+              <h4>Tenant Posts&nbsp;
+              <a href="{{=URL('default', 'edit')}}" type="button" class="btn btn-primary"><i class="fa fa-plus"></i></a></h4>
   		    {{for p in posts:}}
   		        <!--
   		        old code:
@@ -211,7 +215,8 @@
 
   		<div class="profilelan" style="width:45%;padding:0 10pt 0 0;float:left;">
           	<div class="post_list1">
-  	    		<h4>Landlord Posts</h4>
+  	    		<h4>Landlord Posts&nbsp;
+              <a href="{{=URL('default', 'edit_Landlord')}}" type="button" class="btn btn-primary"><i class="fa fa-plus"></i></a></h4>
   	    		{{for p in posts2:}}
 
   		        <div class="post1 text-left">
