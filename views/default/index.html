@@ -90,8 +90,14 @@
               {{else:}} <p><img src="http://usg.mtu.edu/usg/housing/wp-content/uploads/2014/03/no-image-280x200.png" width="100px"/></p>
               {{pass}}
              </center>
+
+               {{if p.rent:}}
+                      <p><strong>Rent: </strong> {{=p.rent}}</p>
+                      {{else:}}
+                      {{pass}}
+                      
              {{if p.my_address:}}
-              <p><strong>Location: </strong>{{=p.my_address}} {{=p.my_city}}, {{=p.my_state}}</p>
+              <p><strong>Location: </strong>{{=p.my_address}}, {{=p.my_city}}, {{=p.my_state}}</p>
              {{else: }}
              {{pass}}
 
@@ -220,8 +226,13 @@
   		            {{else: }} <p><h3>No picture uploaded.</h3></p>
   		            {{pass}}
 
+                  {{if p.rent:}}
+                      <p><strong>Rent: </strong> {{=p.rent}}</p>
+                      {{else:}}
+                      {{pass}}
+
   		            {{if p.my_address:}}
-  		              <p><strong>Location: </strong>{{=p.my_address}} {{=p.my_city}}, {{=p.my_state}}</p>
+  		              <p><strong>Location: </strong>{{=p.my_address}}, {{=p.my_city}}, {{=p.my_state}}</p>
   		            {{else: }}
   		            {{pass}}
 

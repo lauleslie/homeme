@@ -102,6 +102,7 @@ table tr td:first-child::before {
   width: 250px;
   height: auto;
   background-color: #fff;
+  text-align: left;
 }
 
 .thingy img {
