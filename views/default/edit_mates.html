@@ -1,0 +1,30 @@
+{{extend 'layout.html'}}
+<link rel="stylesheet" href="{{=URL('static','css/editm.css')}}"/>
+
+<div class="profilecard">
+  <a href="{{=URL('default', 'profile')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to my profile</a>
+  <h3>Links I have received</h3>
+<table>
+  {{for friend in friends:}}
+  <tr>
+    <td>{{=A(name_of(friend.auth_user),_href=URL('wall',args=friend.auth_user.id))}}</td>
+    <td>{{if friend.link.accepted:}}accepted{{else:}}<button onclick="ajax('{{=URL('housemate_link',args=('accept',friend.auth_user.id))}}',[],null); $(this).parent().html('accepted')">accept request</button>{{pass}}</td>
+   <td><button onclick="ajax('{{=URL('housemate_link',args=('deny',friend.auth_user.id))}}',[],null); $(this).parent().html('denied')">reject request</button></td>
+  </tr>
+  {{pass}}
+</table>
+<h3>Links I have requested</h3>
+
+<table>
+  {{for friend in requests:}}
+  <tr>
+    <td>{{=A(name_of(friend.auth_user),_href=URL('wall',args=friend.auth_user.id))}}</td>
+    <td>{{if friend.link.accepted:}} request was accepted
+        {{else:}} pending request
+        {{pass}}
+    </td>
+    <td><button onclick="ajax('{{=URL('housemate_link',args=('deny',friend.auth_user.id))}}',[],null); $(this).parent().html('removed')">remove this link</button></td>
+  </tr>
+  {{pass}}
+</table>
+</div>
