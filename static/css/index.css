@@ -124,13 +124,14 @@ h4 {
 
 div.tab {
     overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
+    align-content: center;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
 /* Style the buttons inside the tab */
 div.tab button {
-    background-color: inherit;
+    background-color: #ddd !important;
     float: left;
     border: none;
     outline: none;
@@ -138,6 +139,7 @@ div.tab button {
     padding: 14px 16px;
     transition: 0.3s;
     font-size: 10px;
+    border-radius: 0px !important;
 }
 
 /* Change background color of buttons on hover */
@@ -147,5 +149,5 @@ div.tab button:hover {
 
 /* Create an active/current tablink class */
 div.tab button.active {
-    background-color: #ccc !important;
+    background-color: #88A087 !important;
 }
