@@ -22,7 +22,7 @@
 
 {{include 'default/maps.html'}}
 {{for row in posts:}}{{if row.latitude and row.longitude:}}
-
+<p>row.latitude, row.longtitude: {{=row.latitude}},{{=row.longitude}}</p>
 {{pass}}{{pass}}
 
 </div>
