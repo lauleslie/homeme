@@ -1,0 +1,4 @@
+This folder includes our release documents:
+- Test Plan
+- Prototype
+- Installation Guide
