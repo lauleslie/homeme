@@ -4,11 +4,8 @@
 <div class="post_listing center">
 {{if auth.user_id:}}
 
-<!--
     <a href="{{=URL('default', 'edit')}}" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Post as Tenant</a>
     <a href="{{=URL('default', 'edit_Landlord')}}" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Post as Landlord</a>
-
--->
 
 <!-- <div class="profilesearch">
       <h4>Search for a user:</h4>
@@ -28,6 +25,11 @@
 -->
 {{else:}}
 
+    <div class="post_list_header text-right">
+        <a href="{{=URL('default', 'user', args=['login'])}}" class="btn btn-warning">Log In</a>
+    </div>
+
+
 {{pass}}
 
 	<div class="tab">
@@ -46,7 +48,7 @@
 	        <div class="post1 text-left">
 	            <!-- Here goes the code to display an individual post. The code below is just a placeholder. -->
 	            <h3>{{=p.post_content}}</h3>
-				<strong>Budget:</strong> ${{=p.min_budget}} to ${{=p.max_budget}}
+				      <strong>Budget:</strong> ${{=p.min_budget}} to ${{=p.max_budget}}
 	            </p>
 	            <p><strong>Description:</strong> {{=p.description}}
 	            </p>
@@ -55,7 +57,7 @@
 
 	            <div class="post_details text-left">
 
-	                Posted by: <b>{{=firstlast(p.user_email)}}</b>
+	                Posted by: <a href="{{=URL('default', 'profile', args=p.user_id)}}">{{=firstlast(p.user_email)}}</a><br>
 	                at <em>{{=p.created_on.hour}}:{{=p.created_on.minute}}</em>
 
 	                {{if p.created_on == p.updated_on:}}
@@ -69,9 +71,18 @@
 
 	                {{if auth.user is not None:}}
 	                    {{if p.user_email == auth.user.email:}}
-	                        | <a href="{{=URL('default', 'edit', args=[p.id], vars=dict(edit='true'))}}">
+	                           <a href="{{=URL('default', 'edit', args=[p.id], vars=dict(edit='true'))}}">
 	                            Click to edit
-	                        </a>
+	                           </a>
+                             <br>
+                            {{for c in contacts:}}
+                              {{if c.post_id == p.id:}}
+                                 <a href="{{=URL('default', 'profile', args=c.user_id)}}">{{=firstlast(c.user_email)}}</a><br>
+                              {{pass}}
+                            {pass}}
+                      {{else:}}
+                          <br>
+                          <button onclick="ajax('{{=URL('contact',args=('request',p.id,auth.user_id,auth.user.email))}}', [], null); $(this).parent().html('Info Sent')">Send Info</button>
 	                    {{pass}}
 	                {{pass}}
 	            </div>
@@ -87,17 +98,11 @@
           <div class="thingy">
               <center>
               {{if p.picture:}} <p><img src="{{=URL('default', 'download', args=p.picture)}}" width="100px"/></p>
-              {{else:}} <p><img src="http://usg.mtu.edu/usg/housing/wp-content/uploads/2014/03/no-image-280x200.png" width="100px"/></p>
+              {{else:}} <p><img src="https://static.pexels.com/photos/317356/pexels-photo-317356.jpeg" width="100px"/></p>
               {{pass}}
              </center>
-
-               {{if p.rent:}}
-                      <p><strong>Rent: </strong> {{=p.rent}}</p>
-                      {{else:}}
-                      {{pass}}
-                      
              {{if p.my_address:}}
-              <p><strong>Location: </strong>{{=p.my_address}}, {{=p.my_city}}, {{=p.my_state}}</p>
+              <p><strong>Location: </strong>{{=p.my_address}} {{=p.my_city}}, {{=p.my_state}}</p>
              {{else: }}
              {{pass}}
 
@@ -137,7 +142,7 @@
              <p><strong>More info: </strong> {{=p.more_info}} </p>
              {{pass}}
             <div class="postedby">
-              Posted by: {{=firstlast(p.user_email)}} <br>
+              Posted by: <a href="{{=URL('default', 'profile', args=p.user_id)}}">{{=firstlast(p.user_email)}}</a><br>
 
               <i class="fa fa-clock-o" aria-hidden="true"></i> <em>{{=p.createdon.hour}}:{{=p.createdon.minute}}</em>
 
@@ -152,8 +157,17 @@
 
               {{if auth.user is not None:}}
                   {{if p.user_email == auth.user.email:}}
-                    | <a href="{{=URL('default', 'edit_Landlord', args=[p.id], vars=dict(edit='true'))}}">
+                      <a href="{{=URL('default', 'edit_Landlord', args=[p.id], vars=dict(edit='true'))}}">
                           Click to edit </a>
+                      <br>
+                      {{for c in contacts:}}
+                        {{if c.post_id == p.id:}}
+                          <a href="{{=URL('default', 'profile', args=c.user_id)}}">{{=firstlast(c.user_email)}}</a><br>
+                        {{pass}}
+                      {{pass}}
+                  {{else:}}
+                      <br>
+                      <button onclick="ajax('{{=URL('contact',args=('request',p.id,auth.user_id,auth.user.email))}}', [], null); $(this).parent().html('Info Sent')">Send Info</button>
                   {{pass}}
               {{pass}}
             <!-- end postedby -->
@@ -166,8 +180,7 @@
   <div id="all" class="tabcontent">
       	<div class="profilelan" style="width:45%;padding:0 10pt 0 0;float:right;">
           	<div class="post_list1">
-              <h4>Tenant Posts&nbsp;
-              <a href="{{=URL('default', 'edit')}}" type="button" class="btn btn-primary"><i class="fa fa-plus"></i></a></h4>
+              <h4>Tenant Posts</h4>
   		    {{for p in posts:}}
   		        <!--
   		        old code:
@@ -188,7 +201,7 @@
 
   		            <div class="post_details text-left">
 
-  		                Posted by: <b>{{=firstlast(p.user_email)}}</b>
+  		                Posted by: <a href="{{=URL('default', 'profile', args=p.user_id)}}">{{=firstlast(p.user_email)}}</a><br>
   		                at <em>{{=p.created_on.hour}}:{{=p.created_on.minute}}</em>
 
   		                {{if p.created_on == p.updated_on:}}
@@ -202,10 +215,19 @@
 
   		                {{if auth.user is not None:}}
   		                    {{if p.user_email == auth.user.email:}}
-  		                        | <a href="{{=URL('default', 'edit', args=[p.id], vars=dict(edit='true'))}}">
+  		                          <a href="{{=URL('default', 'edit', args=[p.id], vars=dict(edit='true'))}}">
   		                            Click to edit
-  		                        </a>
+  		                          </a>
+                                {{for c in contacts:}}
+                                    {{if c.post_id == p.id:}}
+                                      <a href="{{=URL('default', 'profile', args=c.user_id)}}">{{=firstlast(c.user_email)}}</a><br>
+                                    {{pass}}
+                                {{pass}}
+                          {{else:}}
+                              <br>
+                              <button onclick="ajax('{{=URL('contact',args=('request',p.id,auth.user_id,auth.user.email))}}', [], null); $(this).parent().html('Info Sent')">Send Info</button>
   		                    {{pass}}
+
   		                {{pass}}
   		            </div>
   		        </div>
@@ -216,8 +238,7 @@
 
   		<div class="profilelan" style="width:45%;padding:0 10pt 0 0;float:left;">
           	<div class="post_list1">
-  	    		<h4>Landlord Posts&nbsp;
-              <a href="{{=URL('default', 'edit_Landlord')}}" type="button" class="btn btn-primary"><i class="fa fa-plus"></i></a></h4>
+  	    		<h4>Landlord Posts</h4>
   	    		{{for p in posts2:}}
 
   		        <div class="post1 text-left">
@@ -226,13 +247,8 @@
   		            {{else: }} <p><h3>No picture uploaded.</h3></p>
   		            {{pass}}
 
-                  {{if p.rent:}}
-                      <p><strong>Rent: </strong> {{=p.rent}}</p>
-                      {{else:}}
-                      {{pass}}
-
   		            {{if p.my_address:}}
-  		              <p><strong>Location: </strong>{{=p.my_address}}, {{=p.my_city}}, {{=p.my_state}}</p>
+  		              <p><strong>Location: </strong>{{=p.my_address}} {{=p.my_city}}, {{=p.my_state}}</p>
   		            {{else: }}
   		            {{pass}}
 
@@ -274,7 +290,7 @@
 
   		            <div class="post_details text-left">
 
-  		                Posted by: <b>{{=firstlast(p.user_email)}}</b>
+  		                Posted by: <a href="{{=URL('default', 'profile', args=p.user_id)}}">{{=firstlast(p.user_email)}}</a><br>
   		                at <em>{{=p.createdon.hour}}:{{=p.createdon.minute}}</em>
 
   		                {{if p.createdon == p.updatedon:}}
@@ -288,9 +304,18 @@
 
   		                {{if auth.user is not None:}}
   		                    {{if p.user_email == auth.user.email:}}
-  		                        | <a href="{{=URL('default', 'edit_Landlord', args=[p.id], vars=dict(edit='true'))}}">
+  		                          <a href="{{=URL('default', 'edit_Landlord', args=[p.id], vars=dict(edit='true'))}}">
   		                            Click to edit
-  		                        </a>
+  		                          </a>
+                                <br>
+                                {{for c in contacts:}}
+                                    {{if c.post_id == p.id:}}
+                                      <a href="{{=URL('default', 'profile', args=c.user_id)}}">{{=firstlast(c.user_email)}}</a><br>
+                                    {{pass}}
+                                {{pass}}
+                          {{else:}}
+                              <br>
+                              <button onclick="ajax('{{=URL('contact',args=('request',p.id,auth.user_id,auth.user.email))}}', [], null); $(this).parent().html('Info Sent')">Send Info</button>
   		                    {{pass}}
   		                {{pass}}
   		            </div>

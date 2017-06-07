@@ -45,6 +45,10 @@ def index():
     # what you get from a db(...).select(...).
     # posts = ['banana', 'pear', 'eggplant']
 
+    contacts = db().select(
+        orderby=~db.contact.post_id
+    )
+
     posts = db().select(
         orderby=~db.post.updated_on,
         limitby=(0, 5)
@@ -77,6 +81,12 @@ def profile():
 
     friends = db(User.id==Link.src)(Link.target==me).select(orderby=alphabetical)
     requests = db(User.id==Link.target)(Link.src==me).select(orderby=alphabetical)
+
+    firstlast = get_user_name_from_email
+
+    contacts = db().select(
+        orderby=~db.contact.post_id
+    )
 
     posts = db().select(
         orderby=~db.post.updated_on
@@ -359,6 +369,11 @@ def housemate_link():
 
         db(Link.src==me)(Link.target==a1).delete()
 
+@auth.requires_login()
+def contact():
+    if a0=='request':
+        # insert a new friendship request
+        Con.insert(post_id=a1,user_id=a2,user_email=a3)
 
 def user():
     """

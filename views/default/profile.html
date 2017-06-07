@@ -68,6 +68,16 @@
                           <a href="{{=URL('default', 'edit', args=[p.id], vars=dict(edit='true'))}}">
                            Click to edit
                           </a>
+                          <br>
+                          {{for c in contacts:}}
+                            {{if c.post_id == p.id:}}
+                              <a href="{{=URL('default', 'profile', args=c.user_id)}}">{{=firstlast(c.user_email)}}</a><br>
+                            {{pass}}
+                          {{pass}}
+                          {{else:}}
+                            <br>
+                            <button onclick="ajax('{{=URL('contact',args=('request',p.id,auth.user_id,auth.user.email))}}', [], null); $(this).parent().html('Info Sent')">Send Info</button>
+                        {{pass}}
                         {{pass}}
                       {{pass}}
                     </div>
@@ -151,6 +161,16 @@
                                   | <a href="{{=URL('default', 'edit_Landlord', args=[p.id], vars=dict(edit='true'))}}">
                                       Click to edit
                                   </a>
+                                  <br>
+                          {{for c in contacts:}}
+                            {{if c.post_id == p.id:}}
+                              <a href="{{=URL('default', 'profile', args=c.user_id)}}">{{=firstlast(c.user_email)}}</a><br>
+                            {{pass}}
+                          {{pass}}
+                          {{else:}}
+                            <br>
+                            <button onclick="ajax('{{=URL('contact',args=('request',p.id,auth.user_id,auth.user.email))}}', [], null); $(this).parent().html('Info Sent')">Send Info</button>
+                        {{pass}}
                               {{pass}}
                           {{pass}}
                       </div>
