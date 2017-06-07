@@ -3,6 +3,7 @@
 HomeMe is an intuitive, simple, and easy-to-use web application that connects potential tenants to landlords using a network of profiles and property listings.
 
 Link to Google Drive: https://drive.google.com/drive/u/0/folders/0B0Y-kQ6AP3g0cC1NdHkwOHFPMXc
+
 Link to Trello: https://trello.com/homeme3
 
 ## RELEASE PLAN
