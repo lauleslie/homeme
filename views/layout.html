@@ -1,6 +1,7 @@
 {{response.files.append(URL('static','css/myapp.css'))}}
 {{include 'web2py_ajax.html'}}
 <!DOCTYPE html>
+
 <script src="https://use.fontawesome.com/2a89db6bb1.js"></script>
 <!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{=T.accepted_language or 'en'}}"> <!--<![endif]-->
   <head>
@@ -51,6 +52,31 @@
     (left_sidebar_enabled and 1 or 0)+(right_sidebar_enabled and 1 or 0)]
     }}
   </head>
+  <style>
+    .navbar {
+        background-color:rgba(255,255,255,.9);
+        border: none;
+        padding: 3px;
+    }
+    .navbar img {
+      margin-top: 3px;
+    }
+
+    .navbar a {
+      color: #333 !important;
+    }
+
+    .navbar a:hover {
+      color: #333 !important;
+    }
+
+    .navbar-default .navbar-nav>.open>a,
+    .navbar-default .navbar-nav>.open>a:hover, .navbar-default
+    .navbar-nav>.open>a:focus {
+      background-color: #88A087;
+    }
+
+  </style>
   <body>
     <!--[if lt IE 8]><p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
 
@@ -67,6 +93,9 @@
             <span class="icon-bar"></span>
           </button>
           {{=response.logo or ''}}
+          <a href="{{=URL('default', 'index')}}">
+            <img src="http://i.imgur.com/yRFFTxA.jpg" height="50px"/>
+          </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav navbar-right">

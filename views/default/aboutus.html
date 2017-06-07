@@ -1,60 +1,35 @@
+{{extend 'layout.html'}}
 <html lang ="en">
 <head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 <link rel="stylesheet" href="{{=URL('static','css/aboutus.css')}}"/>
 <script src="https://use.fontawesome.com/2a89db6bb1.js"></script>
 </head>
 <body>
 <div class="jumbotron main">
-			<div class="container">
-			<h2><a href="{{=URL('default', 'index')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> HOME</a></h2>
-			<h1>About HomeMe</h1>
-			<p>HomeMe is an intuitive, simple, and easy-to-use web application
-			that connects potential tenants to landlords using a network of
-			profiles and property listings.</p>
+  <div class="container">
+  <h2>About HomeMe</h2>
+  <p>HomeMe is an intuitive, simple, and easy-to-use web application
+  that connects potential tenants to landlords using a network of
+  profiles and property listings.</p>
 
-			<p>
-				<a href="https://github.com/lauleslie/homeme"><i class="fa fa-github"></i> Our Github repo</a>
-			</p>
+  <p>
+  <a href="https://github.com/lauleslie/homeme"><i class="fa fa-github"></i> Our Github repo</a>
+  </p>
 
-			<h1>The HomeMe Team</h1>
+  <h2>The HomeMe Team</h2>
+  <p>
+    <ul>
+      <li>Leslie Lau, PO & Frontend Developer</li>
+      <li>Jason Chen, Backend Developer</li>
+      <li>Andrew Johnson, QA & Junior Developer</li>
+      <li>Josh Sibayan, Team Member</li>
+      <li>Soham Saha, Team Member</li>
+    </ul>
+  </p>
 
-			<div class="card-group">
-			  <div class="card">
-			    <div class="card-block">
-			      <h4 class="card-title">Soham Saha</h4>
-			      <p class="card-text"></p>
-			    </div>
-			  </div>
-			  <div class="card">
 
-			    <div class="card-block">
-			      <h4 class="card-title">Andrew Johnson</h4>
-			      <p class="card-text">Janitor</p>
-			    </div>
-			  </div>
-			  <div class="card">
-			    <div class="card-block">
-			      <h4 class="card-title">Jason Chen</h4>
-			      <p class="card-text">Core functionality</p>
-			    </div>
-			  </div>
-			</div>
-			<div class="card">
-				<div class="card-block">
-					<h4 class="card-title">Josh Sibayan</h4>
-					<p class="card-text"></p>
-				</div>
-			</div>
-			<div class="card">
-				<div class="card-block">
-					<h4 class="card-title">Leslie Lau</h4>
-					<p class="card-text">Front-end dude and helper</p>
-				</div>
-			</div>
-			</div>
 
-			</div>
-		</div>
+  </div>
+  </div>
 </body>
 </html>
