@@ -100,8 +100,7 @@ def edit_mates():
 
     return locals()
 
-def geo(form):
-    (form.vars.longitude,form.vars.latitude)=geocode(form.vars.my_city+', USA')
+
 
 
 # a page for searching friends and requesting friendship
