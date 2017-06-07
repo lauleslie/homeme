@@ -19,6 +19,7 @@ form {
   background-color: #eee;
   padding: 20px;
   margin-top: 10px;
+  margin-bottom: 100px;
 }
 
 .btn {
@@ -55,13 +56,6 @@ table tr td:first-child::before {
   padding-bottom: 30px;
 }
 
-
-body {
-  font-family: 'Open Sans', sans-serif !important;
-}
-a {
-  text-decoration: none;
-}
 .navbar {
     background-color: #eeeeee;
     border: solid #cccccc;

@@ -4,39 +4,15 @@
 <div class="post_listing center">
 {{if auth.user_id:}}
 
-<!-- below is the old code for posting and viewing the profile
-    <div class="post_list_header text-right">
-        <a href="{{=URL('default', 'edit')}}" class="btn btn-warning">
-            <i class="fa fa-plus"></i> New Post as Tenant
-        </a>
-    </div>
-
-    <div class="post_landlord_header text-right">
-        <a href="{{=URL('default', 'edit_Landlord')}}" class="btn btn-warning">
-            <i class="fa fa-plus"></i> New Post as Landlord
-        </a>
-    </div>
-
-
-    <div class="go_to_profile text-right">
-        <a href="{{=URL('default', 'profile')}}" class="btn btn-warning">
-            <i> VIEW MY PROFILE </i>
-        </a>
-    </div>
-
-  -->
-
     <a href="{{=URL('default', 'edit')}}" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Post as Tenant</a>
     <a href="{{=URL('default', 'edit_Landlord')}}" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Post as Landlord</a>
     <a href="{{=URL('default', 'profile')}}" type="button" class="btn btn-info"><i class="fa fa-user-circle" aria-hidden="true"></i> View my profile</a>
-
+    <a href="{{=URL('default', 'search')}}" type="button" class="btn btn-primary"> Advanced searching</a>
 
 <div class="profilesearch">
-  <center>
       <h4>Search for a user:</h4>
       {{=form}}
-  </center>
-    {{if people:}}
+      {{if people:}}
     <h4 align="left">Results:</h4>
     <table>
        {{for user in people:}}
@@ -44,11 +20,9 @@
          <td>{{=A(name_of(user), _href=URL('profile',args=user.id))}}
          </td>
        </tr>
-
        {{pass}}
     </table>
     {{pass}}
-    <a href="{{=URL('default', 'search')}}" type="button" class="btn btn-primary"> Advance searching</a>
 </div>
 
 {{else:}}
@@ -85,7 +59,7 @@
 
 	            <div class="post_details text-left">
 
-	                Posted by: <a href="{{=URL('default', 'profile', args=p.id)}}">{{=firstlast(p.user_email)}}</a>
+	                Posted by: <b>{{=firstlast(p.user_email)}}</b>
 	                at <em>{{=p.created_on.hour}}:{{=p.created_on.minute}}</em>
 
 	                {{if p.created_on == p.updated_on:}}
@@ -189,7 +163,7 @@
 
 	<div id="all" class="tabcontent">
     	<div class="profilelan" style="width:45%;padding:0 10pt 0 0;float:right;">
-        	<strong>Tenant Posts</strong><br>
+        	<h3>Tenant Posts</h3>
         	<div class="post_list1">
 		    {{for p in posts:}}
 		        <!--
@@ -211,7 +185,7 @@
 
 		            <div class="post_details text-left">
 
-		                Posted by: <a href="{{=URL('default', 'profile', args=p.id)}}">{{=firstlast(p.user_email)}}</a>
+		                Posted by: <b>{{=firstlast(p.user_email)}}</b>
 		                at <em>{{=p.created_on.hour}}:{{=p.created_on.minute}}</em>
 
 		                {{if p.created_on == p.updated_on:}}
@@ -238,14 +212,13 @@
 		</div>
 
 		<div class="profilelan" style="width:45%;padding:0 10pt 0 0;float:right;">
-        	<strong>Profile Posts</strong><br>
         	<div class="post_list1">
-	    		<h3>Buggy landlord posting</h3>
+	    		<h3>Property Posts</h3>
 	    		{{for p in posts2:}}
 
 		        <div class="post1 text-left">
 		            <!-- Here goes the code to display an individual post. The code below is just a placeholder. -->
-		            {{if p.picture:}} <p><img src="{{=URL('default', 'download', args=p.picture)}}" width="30%"/></p>
+		            {{if p.picture:}} <p><img src="{{=URL('default', 'download', args=p.picture)}}" width="300px"/></p>
 		            {{else: }} <p><h3>No picture uploaded.</h3></p>
 		            {{pass}}
 
@@ -292,7 +265,7 @@
 
 		            <div class="post_details text-left">
 
-		                Posted by: <a href="{{=URL('default', 'profile', args=p.id)}}">{{=firstlast(p.user_email)}}</a>
+		                Posted by: <b>{{=firstlast(p.user_email)}}</b>
 		                at <em>{{=p.createdon.hour}}:{{=p.createdon.minute}}</em>
 
 		                {{if p.createdon == p.updatedon:}}
@@ -306,7 +279,7 @@
 
 		                {{if auth.user is not None:}}
 		                    {{if p.user_email == auth.user.email:}}
-		                        | <a href="{{=URL('default', 'edit', args=[p.id], vars=dict(edit='true'))}}">
+		                        | <a href="{{=URL('default', 'edit_Landlord', args=[p.id], vars=dict(edit='true'))}}">
 		                            Click to edit
 		                        </a>
 		                    {{pass}}
