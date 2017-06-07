@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>{{=user.first_name}} {{=user.last_name}}'s Profile</title>
+  <title>Profile</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{=URL('static','css/profile.css')}}"/>
@@ -12,6 +12,7 @@
 </head>
 <body>
 
+{{if auth.user_id:}}
 <div class="container">
   <div class="profilecard">
     <a href="{{=URL('default', 'index')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> HOME</a>
@@ -36,7 +37,6 @@
       </div>
       <div id="posts" class="tab-pane fade">
           <p>
-            <h3>{{=user.first_name}} {{=user.last_name}}'s Posts</h3>
             <span class="badge badge-pill badge-default">Tenant Posts</span>
             {{for p in posts:}}
               {{if p.user_email == user.email:}}
@@ -68,15 +68,6 @@
                           <a href="{{=URL('default', 'edit', args=[p.id], vars=dict(edit='true'))}}">
                            Click to edit
                           </a>
-                          <br>
-                          {{for c in contacts:}}
-                            {{if c.post_id == p.id:}}
-                              <a href="{{=URL('default', 'profile', args=c.user_id)}}">{{=firstlast(c.user_email)}}</a><br>
-                            {{pass}}
-                          {{pass}}
-                          {{else:}}
-                            <br>
-                            <button onclick="ajax('{{=URL('contact',args=('request',p.id,auth.user_id,auth.user.email))}}', [], null); $(this).parent().html('Info Sent')">Send Info</button>
                         {{pass}}
                       {{pass}}
                     </div>
@@ -96,16 +87,16 @@
                       {{else: }} <p><h3>No picture uploaded.</h3></p>
                       {{pass}}
 
+                      {{if p.rent:}}
+                      <p><strong>Rent: </strong> {{=p.rent}}</p>
+                      {{else:}}
+                      {{pass}}
+
                       {{if p.my_address:}}
                         <p><strong>Location: </strong>{{=p.my_address}} {{=p.my_city}}, {{=p.my_state}}</p>
                       {{else: }}
                       {{pass}}
 
-                      {{if p.rent:}}
-                      <p><strong>Rent: </strong> {{=p.rent}}</p>
-                      {{else:}}
-                      {{pass}}
-                      
                       {{if p.sq_ft:}}
                         <p><strong>Square feet: </strong> {{=p.sq_ft}}</p>
                       {{else:}}
@@ -157,18 +148,9 @@
 
                           {{if auth.user is not None:}}
                               {{if p.user_email == auth.user.email:}}
-                                    <a href="{{=URL('default', 'edit_Landlord', args=[p.id], vars=dict(edit='true'))}}">
+                                  | <a href="{{=URL('default', 'edit_Landlord', args=[p.id], vars=dict(edit='true'))}}">
                                       Click to edit
-                                    </a>
-                                    <br>
-                                    {{for c in contacts:}}
-                                      {{if c.post_id == p.id:}}
-                                        <a href="{{=URL('default', 'profile', args=c.user_id)}}">{{=firstlast(c.user_email)}}</a><br>
-                                      {{pass}}
-                                    {{pass}}
-                              {{else:}}
-                                <br>
-                                <button onclick="ajax('{{=URL('contact',args=('request',p.id,auth.user_id,auth.user.email))}}', [], null); $(this).parent().html('Info Sent')">Send Info</button>
+                                  </a>
                               {{pass}}
                           {{pass}}
                       </div>
@@ -193,6 +175,12 @@
     </div>
   </div>
 </div>
-
+{{else:}}
+<div class="profilecard">
+  <h3 align="center">Please log in <a href="{{=URL('default', 'user/login')}}">here</a>
+  or <a href="{{=URL('default', 'user/register')}}">sign up here</a>.
+  </h3>
+</div>
+{{pass}}
 </body>
 </html>
