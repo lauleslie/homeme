@@ -318,6 +318,7 @@ def edit_Landlord():
             p.my_address = form.vars.my_address
             p.my_city = form.vars.my_city
             p.my_state = form.vars.my_state
+            p.rent = form.vars.rent
             p.sq_ft = form.vars.sq_ft
             p.num_bed = form.vars.num_bed
             p.num_bath = form.vars.num_bath
