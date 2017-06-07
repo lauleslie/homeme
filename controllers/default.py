@@ -55,6 +55,12 @@ def index():
         limitby=(0, 5)
     )
 
+    contacts = db().select(
+        orderby=~db.contact.post_id
+    )
+
+    firstlast = get_user_name_from_email
+
     firstlast = get_user_name_from_email
 
     form = SQLFORM.factory(Field('name',requires=IS_NOT_EMPTY()))
@@ -77,6 +83,12 @@ def profile():
 
     friends = db(User.id==Link.src)(Link.target==me).select(orderby=alphabetical)
     requests = db(User.id==Link.target)(Link.src==me).select(orderby=alphabetical)
+
+    firstlast = get_user_name_from_email
+
+    contacts = db().select(
+        orderby=~db.contact.post_id
+    )
 
     posts = db().select(
         orderby=~db.post.updated_on
@@ -341,7 +353,7 @@ def edit_Landlord():
     # return dict(form=form, button_list=button_list, p=p, form_type=form_type, post_list=post_list)
     return dict(form=form)
 
-# using ajax to setup links
+
 @auth.requires_login()
 def housemate_link():
     if request.env.request_method!='POST': raise HTTP(400)
@@ -349,17 +361,23 @@ def housemate_link():
         # insert a new friendship request
         Link.insert(src=me,target=a1)
     elif a0=='accept':
-        # accept an existing friendship request
+
         db(Link.target==me)(Link.src==a1).update(accepted=True)
         if not db(Link.src==me)(Link.target==a1).count():
             Link.insert(src=me,target=a1)
     elif a0=='deny':
-        # deny an existing friendship request
+
         db(Link.target==me)(Link.src==a1).delete()
     elif a0=='remove':
-        # delete a previous friendship request
+
         db(Link.src==me)(Link.target==a1).delete()
 
+
+@auth.requires_login()
+def contact():
+    if a0=='request':
+        # insert a new friendship request
+        Con.insert(post_id=a1,user_id=a2,user_email=a3)
 
 def user():
     """

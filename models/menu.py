@@ -45,12 +45,14 @@ def _():
     # ------------------------------------------------------------------------------------------------------------------
     # useful links to internal and external resources
     # ------------------------------------------------------------------------------------------------------------------
+
     response.menu += [
         (T('Home'), False, URL('default', 'index')),
         (T('About Us'), False, URL('default', 'aboutus')),
         (T('Search'), False, URL('default', 'search')),
         (T('View My Profile'), False, URL('default', 'profile'))
         ]
+
 
 
 if DEVELOPMENT_MENU:
